@@ -26,7 +26,8 @@
                         'brand-gradient': 'linear-gradient(135deg, #FF2A7A 0%, #8A2BE2 100%)',
                         'gold-gradient': 'linear-gradient(135deg, #FFE259 0%, #FFA751 100%)',
                         'vip-gradient': 'linear-gradient(135deg, #8A2BE2 0%, #4A00E0 100%)',
-                        'game-card-gradient': 'linear-gradient(135deg, #1f1b3a 0%, #120e24 100%)'
+                        'game-card-gradient': 'linear-gradient(135deg, #1f1b3a 0%, #120e24 100%)',
+                        'sticker-card-gradient': 'linear-gradient(135deg, #2a1b3a 0%, #17102b 100%)'
                     }
                 }
             }
@@ -111,6 +112,12 @@
             50% { box-shadow: 0 0 30px rgba(255, 42, 122, 0.8); }
         }
         .glow-pulse { animation: pulseGlow 2.5s infinite; }
+
+        @keyframes floatSticker {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-4px) scale(1.05); }
+        }
+        .animate-sticker { animation: floatSticker 2s ease-in-out infinite; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex items-center justify-center p-0 md:p-4">
@@ -386,7 +393,7 @@
                 <!-- Active Chat Screen (Overlay) -->
                 <div id="active-chat-screen" class="absolute inset-0 bg-slate-950 z-30 flex flex-col hidden">
                     <!-- Chat Header -->
-                    <div class="h-16 bg-slate-900 border-b border-slate-800 px-4 flex items-center justify-between">
+                    <div class="h-16 bg-slate-900 border-b border-slate-800 px-4 flex items-center justify-between flex-shrink-0">
                         <div class="flex items-center space-x-3">
                             <button onclick="closeChatScreen()" class="text-slate-400 hover:text-white p-2">
                                 <i class="fa-solid fa-chevron-left text-lg"></i>
@@ -403,6 +410,10 @@
 
                         <!-- Chat Action Controls -->
                         <div class="flex items-center space-x-2">
+                            <!-- Sticker Store Quick Launch Button -->
+                            <button onclick="openStickersModal()" title="Loja de Figurinhas & Presentes" class="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-md hover:scale-105 transition-all">
+                                <i class="fa-solid fa-gift text-xs"></i>
+                            </button>
                             <!-- Direct Game Shortcut Button -->
                             <button onclick="launchGameFromChat()" title="Mandar Quebra-Gelo de Casal" class="w-9 h-9 rounded-full bg-purple-900/60 border border-purple-500/40 text-purple-300 flex items-center justify-center shadow-md hover:scale-105 transition-all">
                                 <i class="fa-solid fa-dice text-xs"></i>
@@ -424,8 +435,11 @@
                     </div>
 
                     <!-- Chat Input Controls -->
-                    <div class="p-3 bg-slate-900 border-t border-slate-800 flex items-center space-x-2">
-                        <button onclick="triggerChatPhotoUpload()" class="w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-brand-pink flex items-center justify-center border border-slate-700">
+                    <div class="p-3 bg-slate-900 border-t border-slate-800 flex items-center space-x-2 flex-shrink-0">
+                        <button onclick="openStickersModal()" title="Enviar Figurinha com Valor/Recompensa" class="w-9 h-9 rounded-full bg-amber-500/20 text-amber-400 hover:text-amber-300 flex items-center justify-center border border-amber-500/40 hover:scale-105 transition-all">
+                            <i class="fa-solid fa-face-smile-wink text-sm"></i>
+                        </button>
+                        <button onclick="triggerChatPhotoUpload()" title="Enviar Foto" class="w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-brand-pink flex items-center justify-center border border-slate-700">
                             <i class="fa-solid fa-image text-xs"></i>
                         </button>
                         <input type="text" id="chat-input" placeholder="Digite uma mensagem..." onkeydown="if(event.key==='Enter') sendChatMessage()" class="flex-grow bg-slate-800 border border-slate-700 rounded-full px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-pink">
@@ -471,6 +485,7 @@
                         <ul class="text-xs text-slate-300 space-y-1.5">
                             <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> Videochamadas Ilimitadas HD</li>
                             <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> Veja Quem Te Curtiu Instantaneamente</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> Figurinhas VIP & Presentes Virtuais Especiais</li>
                             <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> Jogos & Desafios de Casal Exclusivos VIP</li>
                         </ul>
                         <button onclick="openVipModal()" id="vip-action-btn" class="w-full py-3 rounded-2xl bg-gold-gradient text-slate-950 font-black text-xs shadow-lg shadow-amber-500/20 hover:scale-[1.02] transition-all">
@@ -516,6 +531,54 @@
             </button>
         </nav>
 
+    </div>
+
+    <!-- MODAL: STICKERS & VIRTUAL GIFTS STORE -->
+    <div id="stickers-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-end justify-center p-0 sm:p-4 hidden animate-in fade-in duration-200">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl relative max-h-[85vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 flex-shrink-0">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+                        <i class="fa-solid fa-face-smile-wink text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm text-white">Figurinhas & Presentes VIP</h3>
+                        <p class="text-[10px] text-slate-400">Envie amor e ganhe Pontos de Sintonia com seu match</p>
+                    </div>
+                </div>
+                <button onclick="closeStickersModal()" class="text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Categories Tabs -->
+            <div class="flex space-x-2 overflow-x-auto pb-1 scrollbar-none flex-shrink-0">
+                <button onclick="switchStickerCat('romance')" id="sticker-cat-romance" class="sticker-cat-btn px-3 py-1.5 rounded-full bg-brand-pink/20 text-brand-pink border border-brand-pink/40 text-[11px] font-bold whitespace-nowrap">
+                    ❤️ Românticas
+                </button>
+                <button onclick="switchStickerCat('flirt')" id="sticker-cat-flirt" class="sticker-cat-btn px-3 py-1.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-[11px] font-bold whitespace-nowrap">
+                    🔥 Flertes VIP
+                </button>
+                <button onclick="switchStickerCat('gifts')" id="sticker-cat-gifts" class="sticker-cat-btn px-3 py-1.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-[11px] font-bold whitespace-nowrap">
+                    🎁 Presentes
+                </button>
+                <button onclick="switchStickerCat('compliments')" id="sticker-cat-compliments" class="sticker-cat-btn px-3 py-1.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-[11px] font-bold whitespace-nowrap">
+                    ✨ Elogios
+                </button>
+            </div>
+
+            <!-- Stickers Grid -->
+            <div id="stickers-grid" class="grid grid-cols-2 gap-2.5 overflow-y-auto pr-1 flex-grow">
+                <!-- Populated dynamically -->
+            </div>
+
+            <!-- Footer Info -->
+            <div class="pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex justify-between items-center flex-shrink-0">
+                <span><i class="fa-solid fa-bolt text-amber-400 mr-1"></i> Bônus de Sintonia Ativo</span>
+                <span class="text-amber-400 font-bold" id="sticker-user-points">+120 PTS de Casal</span>
+            </div>
+        </div>
     </div>
 
     <!-- MODAL: PHOTO PICKER SELECTION (PROFILE / CHAT) -->
@@ -744,13 +807,13 @@
                     gain.gain.setValueAtTime(0.2, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
                     osc.start(now); osc.stop(now + 0.12);
-                } else if (type === 'card') {
+                } else if (type === 'card' || type === 'sticker') {
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(300, now);
-                    osc.frequency.exponentialRampToValueAtTime(600, now + 0.15);
-                    gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
-                    osc.start(now); osc.stop(now + 0.15);
+                    osc.frequency.setValueAtTime(450, now);
+                    osc.frequency.exponentialRampToValueAtTime(900, now + 0.18);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
+                    osc.start(now); osc.stop(now + 0.18);
                 }
             } catch(e) {}
         }
@@ -826,6 +889,33 @@
             }
         ];
 
+        // --- STICKERS DATABASE WITH VALUES / REWARDS ---
+        const stickersDatabase = {
+            romance: [
+                { id: 's1', icon: '💖', title: 'Coração Apaixonado', points: 15, valueText: '+15 PTS Sintonia', badge: 'Popular', bg: 'from-pink-500/20 to-red-500/20' },
+                { id: 's2', icon: '🌹', title: 'Rosa Romântica', points: 25, valueText: '+25 PTS Sintonia', badge: 'Romance', bg: 'from-rose-500/20 to-pink-500/20' },
+                { id: 's3', icon: '👩‍❤️‍💋‍👨', title: 'Beijo Apaixonado', points: 40, valueText: '+40 PTS Sintonia', badge: 'Quente', bg: 'from-purple-500/20 to-pink-500/20' },
+                { id: 's4', icon: '💌', title: 'Carta do Coração', points: 20, valueText: '+20 PTS Sintonia', badge: 'Fofo', bg: 'from-amber-500/20 to-pink-500/20' }
+            ],
+            flirt: [
+                { id: 's5', icon: '🔥', title: 'Chama de Flerte', points: 30, valueText: '+30 PTS Sintonia', badge: 'Fogo', bg: 'from-orange-500/20 to-red-500/20' },
+                { id: 's6', icon: '😉', title: 'Pisadinha Marota', points: 15, valueText: '+15 PTS Sintonia', badge: 'Leve', bg: 'from-amber-500/20 to-yellow-500/20' },
+                { id: 's7', icon: '😈', title: 'Provocante VIP', points: 50, valueText: '+50 PTS Sintonia', badge: 'VIP Hot', bg: 'from-purple-600/20 to-indigo-600/20' },
+                { id: 's8', icon: '👀', title: 'De Olho em Você', points: 20, valueText: '+20 PTS Sintonia', badge: 'Curioso', bg: 'from-sky-500/20 to-blue-500/20' }
+            ],
+            gifts: [
+                { id: 's9', icon: '☕', title: 'Café de Encontro', points: 35, valueText: 'R$ 10 Presente (+35 PTS)', badge: 'Encontro', bg: 'from-amber-700/20 to-amber-500/20' },
+                { id: 's10', icon: '🍷', title: 'Taça de Vinho VIP', points: 60, valueText: 'R$ 25 Presente (+60 PTS)', badge: 'VIP Deluxe', bg: 'from-purple-900/30 to-pink-600/20' },
+                { id: 's11', icon: '💎', title: 'Diamante Eterno', points: 100, valueText: 'R$ 50 Presente (+100 PTS)', badge: 'SUPER VIP', bg: 'from-sky-400/20 to-indigo-500/20' },
+                { id: 's12', icon: '🧸', title: 'Urso do Amor', points: 45, valueText: 'R$ 15 Presente (+45 PTS)', badge: 'Carinho', bg: 'from-pink-400/20 to-purple-400/20' }
+            ],
+            compliments: [
+                { id: 's13', icon: '🌟', title: 'Você é um Espetáculo', points: 25, valueText: '+25 PTS Sintonia', badge: 'Elogio', bg: 'from-yellow-500/20 to-amber-500/20' },
+                { id: 's14', icon: '👑', title: 'Rainha do Match', points: 50, valueText: '+50 PTS Sintonia', badge: 'Crown', bg: 'from-amber-400/20 to-yellow-300/20' },
+                { id: 's15', icon: '✨', title: 'Brilho Único', points: 30, valueText: '+30 PTS Sintonia', badge: 'Mágico', bg: 'from-purple-400/20 to-sky-400/20' }
+            ]
+        };
+
         // --- GAME CARDS DATABASE ---
         const gameCardsData = {
             light: [
@@ -872,7 +962,8 @@
         let callTimerInterval = null;
         let callSeconds = 0;
         let localMediaStream = null;
-        let currentPhotoContext = 'profile'; // 'profile' or 'chat'
+        let currentPhotoContext = 'profile';
+        let activeStickerCat = 'romance';
 
         // Game State
         let affinityPoints = 120;
@@ -892,6 +983,7 @@
             renderCardStack();
             renderExploreVideoReels();
             renderAffinityQuiz();
+            renderStickersGrid();
         };
 
         // --- NAVIGATION TABS ---
@@ -1124,7 +1216,7 @@
                                 <h4 class="font-bold text-sm text-white truncate">${m.name}</h4>
                                 <span class="text-[10px] text-slate-500">${lastMsg.time}</span>
                             </div>
-                            <p class="text-xs text-slate-400 truncate mt-0.5">${lastMsg.text}</p>
+                            <p class="text-xs text-slate-400 truncate mt-0.5">${lastMsg.isSticker ? '✨ Enviou uma Figurinha VIP' : lastMsg.text}</p>
                         </div>
                     </div>
                 `;
@@ -1152,15 +1244,32 @@
             if (!match) return;
 
             const body = document.getElementById('chat-messages-body');
-            body.innerHTML = match.messages.map(msg => `
-                <div class="flex flex-col ${msg.sender === 'me' ? 'items-end' : 'items-start'}">
-                    <div class="max-w-[85%] rounded-2xl px-4 py-2.5 text-xs ${msg.sender === 'me' ? 'bg-brand-gradient text-white rounded-br-none shadow-md' : 'bg-slate-900 text-slate-200 rounded-bl-none border border-slate-800'}">
-                        ${msg.isGame ? `<div class="font-bold text-amber-300 text-[10px] mb-1 uppercase flex items-center gap-1"><i class="fa-solid fa-gamepad"></i> Desafio de Casal LoveConnect</div>` : ''}
-                        ${msg.isImage ? `<img src="${msg.text}" class="rounded-xl max-w-full h-auto my-1 max-h-60 object-cover">` : msg.text}
+            body.innerHTML = match.messages.map(msg => {
+                if (msg.isSticker) {
+                    return `
+                        <div class="flex flex-col ${msg.sender === 'me' ? 'items-end' : 'items-start'}">
+                            <div class="relative max-w-[80%] rounded-2xl p-3 bg-gradient-to-br ${msg.stickerBg || 'from-purple-900/50 to-slate-900'} border border-amber-500/40 shadow-xl flex flex-col items-center text-center space-y-1.5 my-1">
+                                <span class="text-4xl animate-sticker my-1">${msg.stickerIcon}</span>
+                                <span class="font-black text-xs text-white">${msg.stickerTitle}</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-extrabold text-[9px] border border-amber-400/30 flex items-center gap-1">
+                                    <i class="fa-solid fa-crown text-[8px]"></i> ${msg.stickerValue}
+                                </span>
+                            </div>
+                            <span class="text-[9px] text-slate-500 mt-0.5 px-1">${msg.time}</span>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="flex flex-col ${msg.sender === 'me' ? 'items-end' : 'items-start'}">
+                        <div class="max-w-[85%] rounded-2xl px-4 py-2.5 text-xs ${msg.sender === 'me' ? 'bg-brand-gradient text-white rounded-br-none shadow-md' : 'bg-slate-900 text-slate-200 rounded-bl-none border border-slate-800'}">
+                            ${msg.isGame ? `<div class="font-bold text-amber-300 text-[10px] mb-1 uppercase flex items-center gap-1"><i class="fa-solid fa-gamepad"></i> Desafio de Casal LoveConnect</div>` : ''}
+                            ${msg.isImage ? `<img src="${msg.text}" class="rounded-xl max-w-full h-auto my-1 max-h-60 object-cover">` : msg.text}
+                        </div>
+                        <span class="text-[9px] text-slate-500 mt-1 px-1">${msg.time}</span>
                     </div>
-                    <span class="text-[9px] text-slate-500 mt-1 px-1">${msg.time}</span>
-                </div>
-            `).join('');
+                `;
+            }).join('');
 
             body.scrollTop = body.scrollHeight;
         }
@@ -1198,6 +1307,112 @@
             currentPhotoContext = 'chat';
             document.getElementById('photo-picker-title').innerText = "Enviar Imagem no Chat";
             document.getElementById('photo-picker-modal').classList.remove('hidden');
+        }
+
+        // --- STICKERS MODAL LOGIC & SYSTEM ---
+        function openStickersModal() {
+            if(!activeChatMatchId && matchesList.length > 0) {
+                activeChatMatchId = matchesList[0].id;
+            }
+
+            if(!activeChatMatchId) {
+                alert("Você precisa estar em uma conversa para enviar uma figurinha!");
+                switchTab('feed');
+                return;
+            }
+
+            document.getElementById('sticker-user-points').innerText = `+${affinityPoints} PTS de Casal`;
+            document.getElementById('stickers-modal').classList.remove('hidden');
+        }
+
+        function closeStickersModal() {
+            document.getElementById('stickers-modal').classList.add('hidden');
+        }
+
+        function switchStickerCat(cat) {
+            activeStickerCat = cat;
+            document.querySelectorAll('.sticker-cat-btn').forEach(b => {
+                b.className = 'sticker-cat-btn px-3 py-1.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-[11px] font-bold whitespace-nowrap';
+            });
+
+            const activeBtn = document.getElementById(`sticker-cat-${cat}`);
+            if (activeBtn) {
+                activeBtn.className = 'sticker-cat-btn px-3 py-1.5 rounded-full bg-brand-pink/20 text-brand-pink border border-brand-pink/40 text-[11px] font-bold whitespace-nowrap';
+            }
+
+            renderStickersGrid();
+        }
+
+        function renderStickersGrid() {
+            const grid = document.getElementById('stickers-grid');
+            const items = stickersDatabase[activeStickerCat] || [];
+
+            grid.innerHTML = items.map(st => `
+                <div onclick="sendSticker('${st.id}')" class="bg-gradient-to-br ${st.bg} border border-slate-700/80 hover:border-amber-400 p-3 rounded-2xl flex flex-col items-center text-center space-y-1.5 cursor-pointer transition-all hover:scale-[1.03] shadow-lg group">
+                    <span class="text-3xl group-hover:scale-110 transition-all">${st.icon}</span>
+                    <div>
+                        <h4 class="font-bold text-xs text-white leading-tight">${st.title}</h4>
+                        <span class="text-[9px] font-black text-amber-400 mt-0.5 block">${st.valueText}</span>
+                    </div>
+                    <span class="text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 bg-slate-950/60 rounded-full text-slate-300 border border-slate-800">${st.badge}</span>
+                </div>
+            `).join('');
+        }
+
+        function sendSticker(stickerId) {
+            const match = matchesList.find(m => m.id === activeChatMatchId);
+            if (!match) return;
+
+            let sticker = null;
+            Object.values(stickersDatabase).forEach(list => {
+                const found = list.find(s => s.id === stickerId);
+                if (found) sticker = found;
+            });
+
+            if (!sticker) return;
+
+            closeStickersModal();
+            playSound('sticker');
+
+            // Add sticker message
+            match.messages.push({
+                sender: 'me',
+                isSticker: true,
+                stickerIcon: sticker.icon,
+                stickerTitle: sticker.title,
+                stickerValue: sticker.valueText,
+                stickerBg: sticker.bg,
+                time: 'Agora'
+            });
+
+            // Increase Affinity Points
+            addAffinityPoints(sticker.points);
+
+            if(sticker.points >= 50) {
+                confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } });
+            }
+
+            renderChatMessages();
+            updateMatchesUI();
+
+            // Match automated appreciation response
+            const typing = document.getElementById('chat-typing');
+            typing.classList.remove('hidden');
+
+            setTimeout(() => {
+                typing.classList.add('hidden');
+                const stickerReplies = [
+                    `Nossa, amei essa figurinha! 😍 Você acabou de ganhar meu coração com essa!`,
+                    `Que fofura de presente! ✨ Ganhou muitos pontos comigo agora!`,
+                    `Ameiii! Que carinho gostoso! 🥰 Bora conversar mais!`
+                ];
+                const replyText = stickerReplies[Math.floor(Math.random() * stickerReplies.length)];
+                
+                match.messages.push({ sender: 'them', text: replyText, time: 'Agora' });
+                renderChatMessages();
+                updateMatchesUI();
+                playSound('msg');
+            }, 1500);
         }
 
         // --- NEW GAME SYSTEM LOGIC ---
@@ -1528,7 +1743,7 @@
                 applySelectedImage(imageDataUrl, context);
             };
             reader.readAsDataURL(file);
-            event.target.value = ''; // Reset file input
+            event.target.value = '';
         }
 
         function applySelectedImage(imageDataUrl, context) {
