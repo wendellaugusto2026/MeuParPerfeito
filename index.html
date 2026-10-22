@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
@@ -88,46 +87,18 @@
             background: #FF2A7A;
         }
 
-        /* Badges / Stamp Overlay */
-        .stamp-overlay {
-            position: absolute;
-            top: 40px;
-            font-size: 2.2rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            padding: 4px 16px;
-            border-radius: 12px;
-            border: 4px solid;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 30;
-            transition: opacity 0.1s ease;
-        }
-        .stamp-like { right: 24px; color: #10B981; border-color: #10B981; transform: rotate(12deg); }
-        .stamp-dislike { left: 24px; color: #EF4444; border-color: #EF4444; transform: rotate(-12deg); }
-        .stamp-superlike { bottom: 130px; left: 50%; transform: translateX(-50%) rotate(-4deg); color: #3B82F6; border-color: #3B82F6; }
-
         @keyframes pulseGlow {
             0%, 100% { box-shadow: 0 0 15px rgba(255, 42, 122, 0.4); }
             50% { box-shadow: 0 0 30px rgba(255, 42, 122, 0.8); }
         }
         .glow-pulse { animation: pulseGlow 2.5s infinite; }
-
-        @keyframes floatSticker {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-4px) scale(1.05); }
-        }
-        .animate-sticker { animation: floatSticker 2s ease-in-out infinite; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex items-center justify-center p-0 md:p-4">
 
     <!-- HIDDEN INPUTS FOR GALLERY & CAMERA CAPTURE -->
-    <!-- Profile Photo Inputs -->
     <input type="file" id="profile-photo-gallery-input" accept="image/*" class="hidden" onchange="handleImageSelection(event, 'profile')">
     <input type="file" id="profile-photo-camera-input" accept="image/*" capture="user" class="hidden" onchange="handleImageSelection(event, 'profile')">
-    
-    <!-- Chat Attachment Inputs -->
     <input type="file" id="chat-photo-gallery-input" accept="image/*" class="hidden" onchange="handleImageSelection(event, 'chat')">
     <input type="file" id="chat-photo-camera-input" accept="image/*" capture="environment" class="hidden" onchange="handleImageSelection(event, 'chat')">
 
@@ -136,7 +107,6 @@
 
         <!-- HEADER BAR -->
         <header class="h-16 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 px-5 flex items-center justify-between z-40 flex-shrink-0">
-            <!-- Brand Logo -->
             <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('feed')">
                 <div class="w-9 h-9 rounded-2xl bg-brand-gradient flex items-center justify-center shadow-lg shadow-brand-pink/30">
                     <i class="fa-solid fa-heart-pulse text-white text-lg"></i>
@@ -149,7 +119,6 @@
                 </div>
             </div>
 
-            <!-- Header Action Controls -->
             <div class="flex items-center space-x-2">
                 <button onclick="openVipModal()" class="px-3 py-1.5 rounded-full bg-gold-gradient text-slate-950 font-black text-xs shadow-md shadow-amber-500/20 hover:scale-105 transition-all flex items-center gap-1">
                     <i class="fa-solid fa-crown text-xs"></i> SEJA VIP
@@ -165,9 +134,7 @@
 
             <!-- TAB 1: SWIPE FEED -->
             <section id="view-feed" class="tab-view absolute inset-0 flex flex-col justify-between p-4 pb-2 z-10">
-                <!-- CARDS STACK CONTAINER -->
                 <div id="cards-stack" class="relative w-full flex-grow flex items-center justify-center">
-                    <!-- Empty Stack Msg -->
                     <div id="empty-stack-msg" class="hidden flex-col items-center justify-center text-center p-6 space-y-4">
                         <div class="w-20 h-20 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-pink text-3xl animate-bounce">
                             <i class="fa-solid fa-radar"></i>
@@ -180,7 +147,6 @@
                     </div>
                 </div>
 
-                <!-- BOTTOM ACTION BUTTONS -->
                 <div id="action-buttons" class="h-20 flex items-center justify-around px-2 flex-shrink-0 z-30">
                     <button onclick="handleBtnAction('rewind')" title="Desfazer" class="w-11 h-11 rounded-full bg-slate-900 border border-amber-500/40 text-amber-400 hover:bg-amber-500 hover:text-white flex items-center justify-center text-lg shadow-lg transition-all active:scale-90">
                         <i class="fa-solid fa-rotate-left"></i>
@@ -200,7 +166,7 @@
                 </div>
             </section>
 
-            <!-- TAB 2: EXPLORE / REELS & MEDIA GALERIA -->
+            <!-- TAB 2: EXPLORE / REELS -->
             <section id="view-explore" class="tab-view absolute inset-0 bg-slate-950 p-4 overflow-y-auto hidden z-20 space-y-4">
                 <div class="flex justify-between items-center">
                     <div>
@@ -211,16 +177,11 @@
                         <i class="fa-solid fa-fire mr-1 text-brand-pink"></i> Em alta
                     </span>
                 </div>
-
-                <!-- Video Feed Cards Grid -->
-                <div id="video-reels-grid" class="grid grid-cols-2 gap-3">
-                    <!-- Populated dynamically -->
-                </div>
+                <div id="video-reels-grid" class="grid grid-cols-2 gap-3"></div>
             </section>
 
-            <!-- TAB 3: JOGOS DE CASAL & QUEBRA-GELO -->
+            <!-- TAB 3: JOGOS -->
             <section id="view-games" class="tab-view absolute inset-0 bg-slate-950 p-4 overflow-y-auto hidden z-20 space-y-4">
-                <!-- Games Header & Affinity Level Bar -->
                 <div class="bg-gradient-to-r from-purple-900/40 to-slate-900 border border-purple-500/30 rounded-2xl p-4 space-y-3">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center space-x-2">
@@ -237,7 +198,6 @@
                         </span>
                     </div>
 
-                    <!-- Affinity Meter Bar -->
                     <div class="space-y-1">
                         <div class="flex justify-between text-[10px] text-slate-300">
                             <span>Sintonia do Casal</span>
@@ -249,14 +209,13 @@
                     </div>
                 </div>
 
-                <!-- Game Modes Selector Tabs -->
                 <div class="grid grid-cols-3 gap-2">
                     <button onclick="switchGameMode('truth-dare')" id="mode-btn-truth-dare" class="game-mode-btn bg-brand-gradient text-white p-2.5 rounded-xl text-center space-y-1 border border-brand-pink/50 shadow-md">
                         <i class="fa-solid fa-dice text-base"></i>
                         <div class="text-[10px] font-bold">Verdade / Desafio</div>
                     </button>
                     <button onclick="switchGameMode('most-likely')" id="mode-btn-most-likely" class="game-mode-btn bg-slate-900 text-slate-400 p-2.5 rounded-xl text-center space-y-1 border border-slate-800 hover:text-white">
-                        <i class="fa-solid fa-[#3B82F6] fa-user-check text-base"></i>
+                        <i class="fa-solid fa-user-check text-base"></i>
                         <div class="text-[10px] font-bold">Quem é Mais?</div>
                     </button>
                     <button onclick="switchGameMode('affinity-quiz')" id="mode-btn-affinity-quiz" class="game-mode-btn bg-slate-900 text-slate-400 p-2.5 rounded-xl text-center space-y-1 border border-slate-800 hover:text-white">
@@ -265,38 +224,21 @@
                     </button>
                 </div>
 
-                <!-- GAME CONTAINER 1: VERDADE OU DESAFIO CARD -->
+                <!-- GAME CONTAINER 1 -->
                 <div id="game-panel-truth-dare" class="game-panel space-y-3">
-                    <!-- Category Selector Filters -->
                     <div class="flex space-x-2 overflow-x-auto pb-1 scrollbar-none">
-                        <button onclick="setCardCategory('light')" id="cat-btn-light" class="cat-filter-btn px-3 py-1 rounded-full bg-purple-900/60 text-purple-300 border border-purple-500/40 text-[10px] font-bold whitespace-nowrap">
-                            🌱 Leve & Quebra-Gelo
-                        </button>
-                        <button onclick="setCardCategory('deep')" id="cat-btn-deep" class="cat-filter-btn px-3 py-1 rounded-full bg-slate-900 text-slate-400 border border-slate-800 text-[10px] font-bold whitespace-nowrap">
-                            💬 Perguntas Profundas
-                        </button>
-                        <button onclick="setCardCategory('spicy')" id="cat-btn-spicy" class="cat-filter-btn px-3 py-1 rounded-full bg-slate-900 text-slate-400 border border-slate-800 text-[10px] font-bold whitespace-nowrap">
-                            🔥 Flertes & Provocações
-                        </button>
+                        <button onclick="setCardCategory('light')" id="cat-btn-light" class="cat-filter-btn px-3 py-1 rounded-full bg-purple-900/60 text-purple-300 border border-purple-500/40 text-[10px] font-bold whitespace-nowrap">🌱 Leve</button>
+                        <button onclick="setCardCategory('deep')" id="cat-btn-deep" class="cat-filter-btn px-3 py-1 rounded-full bg-slate-900 text-slate-400 border border-slate-800 text-[10px] font-bold whitespace-nowrap">💬 Profundas</button>
+                        <button onclick="setCardCategory('spicy')" id="cat-btn-spicy" class="cat-filter-btn px-3 py-1 rounded-full bg-slate-900 text-slate-400 border border-slate-800 text-[10px] font-bold whitespace-nowrap">🔥 Flertes</button>
                     </div>
 
-                    <!-- Interactive Card View -->
                     <div class="relative h-64 w-full perspective-1000">
                         <div id="interactive-card" class="w-full h-full duration-500 transform-style-3d bg-game-card-gradient border border-purple-500/30 rounded-3xl p-6 flex flex-col justify-between items-center text-center shadow-2xl relative">
-                            <!-- Card Header Tag -->
-                            <span id="card-type-tag" class="px-3 py-1 rounded-full bg-brand-pink/20 text-brand-pink font-black text-[10px] uppercase tracking-wider border border-brand-pink/30">
-                                VERDADE
-                            </span>
-
-                            <!-- Card Question / Challenge Content -->
+                            <span id="card-type-tag" class="px-3 py-1 rounded-full bg-brand-pink/20 text-brand-pink font-black text-[10px] uppercase tracking-wider border border-brand-pink/30">VERDADE</span>
                             <div class="my-auto space-y-2">
                                 <i class="fa-solid fa-quote-left text-brand-pink/30 text-2xl"></i>
-                                <p id="card-prompt-text" class="text-sm font-bold text-white leading-relaxed">
-                                    Se você pudesse viajar para qualquer lugar do mundo amanhã com seu match, para onde iriam?
-                                </p>
+                                <p id="card-prompt-text" class="text-sm font-bold text-white leading-relaxed">Se você pudesse viajar para qualquer lugar do mundo amanhã com seu match, para onde iriam?</p>
                             </div>
-
-                            <!-- Action inside card -->
                             <div class="w-full flex justify-between items-center text-[10px] text-slate-400 border-t border-slate-800/80 pt-3">
                                 <span>Ganha +10 Pts de Sintonia</span>
                                 <span class="text-purple-400 font-bold"><i class="fa-solid fa-sparkles"></i> Cartas de Casal</span>
@@ -304,7 +246,6 @@
                         </div>
                     </div>
 
-                    <!-- Game Control Buttons -->
                     <div class="grid grid-cols-2 gap-3 pt-1">
                         <button onclick="drawNewCard()" class="py-3 px-4 rounded-2xl bg-brand-gradient text-white font-extrabold text-xs shadow-lg shadow-brand-pink/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
                             <i class="fa-solid fa-shuffle"></i> Sorteia Carta
@@ -314,153 +255,66 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- GAME CONTAINER 2: QUEM É MAIS PROVÁVEL? -->
-                <div id="game-panel-most-likely" class="game-panel space-y-4 hidden">
-                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4 text-center">
-                        <span class="px-3 py-1 rounded-full bg-sky-500/20 text-sky-400 font-black text-[10px] uppercase tracking-wider border border-sky-500/30">
-                            QUEM É MAIS PROVÁVEL?
-                        </span>
-
-                        <h3 id="most-likely-prompt" class="text-sm font-bold text-white min-h-[48px] flex items-center justify-center">
-                            Quem é mais provável de esquecer a data do primeiro encontro?
-                        </h3>
-
-                        <!-- Voting Options -->
-                        <div class="grid grid-cols-2 gap-3 pt-2">
-                            <button onclick="voteMostLikely('me')" class="p-3 rounded-2xl bg-slate-800 border border-slate-700 hover:border-brand-pink text-slate-200 hover:text-white font-bold text-xs flex flex-col items-center gap-1 transition-all">
-                                <img id="vote-my-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" class="w-10 h-10 rounded-full object-cover border border-slate-600">
-                                <span>Você</span>
-                            </button>
-                            <button onclick="voteMostLikely('match')" class="p-3 rounded-2xl bg-slate-800 border border-slate-700 hover:border-brand-pink text-slate-200 hover:text-white font-bold text-xs flex flex-col items-center gap-1 transition-all">
-                                <img id="vote-partner-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=400" class="w-10 h-10 rounded-full object-cover border border-slate-600">
-                                <span id="vote-partner-name">Camila</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <button onclick="nextMostLikelyQuestion()" class="w-full py-3 rounded-2xl bg-slate-900 border border-slate-800 text-slate-200 font-extrabold text-xs hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-forward"></i> Próxima Pergunta
-                    </button>
-                </div>
-
-                <!-- GAME CONTAINER 3: QUIZ DE SINTONIA -->
-                <div id="game-panel-affinity-quiz" class="game-panel space-y-4 hidden">
-                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4">
-                        <div class="flex justify-between items-center">
-                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-black text-[10px] uppercase tracking-wider border border-emerald-500/30">
-                                QUIZ DE AFINIDADE
-                            </span>
-                            <span class="text-[10px] text-slate-400" id="quiz-step-count">Pergunta 1 de 3</span>
-                        </div>
-
-                        <h3 id="quiz-question-title" class="text-sm font-bold text-white leading-snug">
-                            Qual seria o encontro perfeito para um sábado à noite?
-                        </h3>
-
-                        <!-- Quiz Options Grid -->
-                        <div id="quiz-options-container" class="space-y-2">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-                </div>
             </section>
 
             <!-- TAB 4: MATCHES & CHAT -->
             <section id="view-matches" class="tab-view absolute inset-0 bg-slate-950 flex flex-col hidden z-20">
-                <!-- Matches Container -->
                 <div id="chat-list-container" class="flex-grow flex flex-col overflow-y-auto">
-                    <!-- New Matches Carousel -->
                     <div class="p-4 border-b border-slate-800/80">
                         <div class="flex justify-between items-center mb-3">
                             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Seus Matches</h3>
                             <span class="text-[10px] text-brand-pink font-bold bg-brand-pink/10 px-2 py-0.5 rounded-full" id="match-count-badge">0 Conexões</span>
                         </div>
-                        <div id="new-matches-carousel" class="flex space-x-4 overflow-x-auto pb-2 scrollbar-none">
-                            <!-- Populated dynamically -->
-                        </div>
+                        <div id="new-matches-carousel" class="flex space-x-4 overflow-x-auto pb-2 scrollbar-none"></div>
                     </div>
-
-                    <!-- Conversations List -->
                     <div class="p-4 flex-grow space-y-3">
                         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Mensagens Diretas</h3>
-                        <div id="conversations-list" class="space-y-1">
-                            <!-- Populated dynamically -->
-                        </div>
+                        <div id="conversations-list" class="space-y-1"></div>
                     </div>
                 </div>
 
-                <!-- Active Chat Screen (Overlay) -->
+                <!-- Active Chat Screen -->
                 <div id="active-chat-screen" class="absolute inset-0 bg-slate-950 z-30 flex flex-col hidden">
-                    <!-- Chat Header -->
                     <div class="h-16 bg-slate-900 border-b border-slate-800 px-4 flex items-center justify-between flex-shrink-0">
                         <div class="flex items-center space-x-3">
                             <button onclick="closeChatScreen()" class="text-slate-400 hover:text-white p-2">
                                 <i class="fa-solid fa-chevron-left text-lg"></i>
                             </button>
-                            <div class="relative cursor-pointer" onclick="openProfileDetailModalFromChat()">
+                            <div class="relative cursor-pointer">
                                 <img id="chat-user-avatar" src="" class="w-10 h-10 rounded-full object-cover border border-slate-700">
                                 <span class="w-3 h-3 bg-emerald-500 border-2 border-slate-900 rounded-full absolute bottom-0 right-0"></span>
                             </div>
-                            <div class="cursor-pointer" onclick="openProfileDetailModalFromChat()">
+                            <div>
                                 <h4 id="chat-user-name" class="font-bold text-sm text-white flex items-center gap-1">Nome</h4>
                                 <span class="text-[10px] text-emerald-400 flex items-center"><i class="fa-solid fa-circle text-[6px] mr-1"></i> Online agora</span>
                             </div>
                         </div>
 
-                        <!-- Chat Action Controls -->
                         <div class="flex items-center space-x-2">
-                            <!-- Sticker Store Quick Launch Button -->
-                            <button onclick="openStickersModal()" title="Loja de Figurinhas & Presentes" class="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-md hover:scale-105 transition-all">
-                                <i class="fa-solid fa-gift text-xs"></i>
-                            </button>
-                            <!-- Direct Game Shortcut Button -->
-                            <button onclick="launchGameFromChat()" title="Mandar Quebra-Gelo de Casal" class="w-9 h-9 rounded-full bg-purple-900/60 border border-purple-500/40 text-purple-300 flex items-center justify-center shadow-md hover:scale-105 transition-all">
-                                <i class="fa-solid fa-dice text-xs"></i>
-                            </button>
-                            <button onclick="startVideoCall()" title="Iniciar Videochamada VIP" class="w-9 h-9 rounded-full bg-brand-gradient text-white flex items-center justify-center shadow-md shadow-brand-pink/20 hover:scale-105 transition-all">
+                            <button onclick="startVideoCall()" title="Videochamada VIP" class="w-9 h-9 rounded-full bg-brand-gradient text-white flex items-center justify-center shadow-md shadow-brand-pink/20 hover:scale-105 transition-all">
                                 <i class="fa-solid fa-video text-xs"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Chat Messages Body -->
-                    <div id="chat-messages-body" class="flex-grow p-4 overflow-y-auto space-y-3 bg-slate-950">
-                        <!-- Populated dynamically -->
-                    </div>
+                    <div id="chat-messages-body" class="flex-grow p-4 overflow-y-auto space-y-3 bg-slate-950"></div>
 
-                    <!-- Chat Typing Indicator -->
-                    <div id="chat-typing" class="px-4 py-1 text-xs text-slate-500 italic hidden flex items-center space-x-1">
-                        <span>digitando</span><span class="animate-bounce">.</span><span class="animate-bounce delay-100">.</span><span class="animate-bounce delay-200">.</span>
-                    </div>
-
-                    <!-- Chat Input Controls -->
                     <div class="p-3 bg-slate-900 border-t border-slate-800 flex items-center space-x-2 flex-shrink-0">
-                        <button onclick="openStickersModal()" title="Enviar Figurinha com Valor/Recompensa" class="w-9 h-9 rounded-full bg-amber-500/20 text-amber-400 hover:text-amber-300 flex items-center justify-center border border-amber-500/40 hover:scale-105 transition-all">
-                            <i class="fa-solid fa-face-smile-wink text-sm"></i>
-                        </button>
-                        <button onclick="triggerChatPhotoUpload()" title="Enviar Foto" class="w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-brand-pink flex items-center justify-center border border-slate-700">
-                            <i class="fa-solid fa-image text-xs"></i>
-                        </button>
                         <input type="text" id="chat-input" placeholder="Digite uma mensagem..." onkeydown="if(event.key==='Enter') sendChatMessage()" class="flex-grow bg-slate-800 border border-slate-700 rounded-full px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brand-pink">
-                        <button onclick="sendChatMessage()" class="w-10 h-10 rounded-full bg-brand-gradient text-white flex items-center justify-center shadow-lg hover:scale-105 transition-all">
+                        <button onclick="sendChatMessage()" class="w-10 h-10 rounded-full bg-brand-gradient text-white flex items-center justify-center shadow-lg">
                             <i class="fa-solid fa-paper-plane text-xs"></i>
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- TAB 5: MY PROFILE & ASSINATURA -->
+            <!-- TAB 5: PROFILE & ASSINATURA -->
             <section id="view-profile" class="tab-view absolute inset-0 bg-slate-950 p-5 overflow-y-auto hidden z-20 space-y-5">
-                <!-- User Profile Summary -->
                 <div class="flex flex-col items-center text-center space-y-3 pt-2">
                     <div class="relative">
                         <div class="w-28 h-28 rounded-full p-1 bg-brand-gradient shadow-xl shadow-brand-pink/20">
                             <img id="my-profile-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" class="w-full h-full rounded-full object-cover">
                         </div>
-                        <button onclick="changeProfilePhoto()" class="absolute bottom-0 right-0 bg-slate-900 border border-slate-700 text-white p-2.5 rounded-full shadow-lg hover:text-brand-pink transition-all">
-                            <i class="fa-solid fa-camera text-xs"></i>
-                        </button>
                     </div>
                     <div>
                         <h2 class="text-xl font-black text-white flex items-center justify-center gap-1.5">
@@ -471,7 +325,6 @@
                     </div>
                 </div>
 
-                <!-- ASSINATURA VIP BANNER -->
                 <div id="vip-subscription-card" class="bg-gradient-to-r from-purple-900/60 via-slate-900 to-slate-900 border border-amber-500/40 rounded-3xl p-5 relative overflow-hidden shadow-2xl">
                     <div class="absolute -right-6 -bottom-6 text-slate-800/40 text-9xl pointer-events-none">
                         <i class="fa-solid fa-crown"></i>
@@ -485,25 +338,11 @@
                         <ul class="text-xs text-slate-300 space-y-1.5">
                             <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> Videochamadas Ilimitadas HD</li>
                             <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> Veja Quem Te Curtiu Instantaneamente</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> Figurinhas VIP & Presentes Virtuais Especiais</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> Jogos & Desafios de Casal Exclusivos VIP</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-amber-400 mr-2"></i> Figurinhas VIP & Presentes Especiais</li>
                         </ul>
                         <button onclick="openVipModal()" id="vip-action-btn" class="w-full py-3 rounded-2xl bg-gold-gradient text-slate-950 font-black text-xs shadow-lg shadow-amber-500/20 hover:scale-[1.02] transition-all">
                             ASSINAR VIP AGORA
                         </button>
-                    </div>
-                </div>
-
-                <!-- Edit Info Box -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 space-y-3">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Editar Perfil</h3>
-                    <div class="space-y-1">
-                        <label class="text-[11px] text-slate-400">Nome</label>
-                        <input type="text" id="edit-name-input" value="Alex Rivera" onchange="updateProfileInfo()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-pink">
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-[11px] text-slate-400">Biografia</label>
-                        <textarea id="edit-bio-input" rows="2" onchange="updateProfileInfo()" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-pink resize-none">Gosto de café, viagens e conversas interessantes pela noite ☕✨</textarea>
                     </div>
                 </div>
             </section>
@@ -533,155 +372,45 @@
 
     </div>
 
-    <!-- MODAL: STICKERS & VIRTUAL GIFTS STORE -->
-    <div id="stickers-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-end justify-center p-0 sm:p-4 hidden animate-in fade-in duration-200">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-t-3xl sm:rounded-3xl p-5 space-y-4 shadow-2xl relative max-h-[85vh] flex flex-col">
-            <!-- Modal Header -->
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3 flex-shrink-0">
-                <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
-                        <i class="fa-solid fa-face-smile-wink text-sm"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-sm text-white">Figurinhas & Presentes VIP</h3>
-                        <p class="text-[10px] text-slate-400">Envie amor e ganhe Pontos de Sintonia com seu match</p>
-                    </div>
-                </div>
-                <button onclick="closeStickersModal()" class="text-slate-400 hover:text-white p-1">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-
-            <!-- Categories Tabs -->
-            <div class="flex space-x-2 overflow-x-auto pb-1 scrollbar-none flex-shrink-0">
-                <button onclick="switchStickerCat('romance')" id="sticker-cat-romance" class="sticker-cat-btn px-3 py-1.5 rounded-full bg-brand-pink/20 text-brand-pink border border-brand-pink/40 text-[11px] font-bold whitespace-nowrap">
-                    ❤️ Românticas
-                </button>
-                <button onclick="switchStickerCat('flirt')" id="sticker-cat-flirt" class="sticker-cat-btn px-3 py-1.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-[11px] font-bold whitespace-nowrap">
-                    🔥 Flertes VIP
-                </button>
-                <button onclick="switchStickerCat('gifts')" id="sticker-cat-gifts" class="sticker-cat-btn px-3 py-1.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-[11px] font-bold whitespace-nowrap">
-                    🎁 Presentes
-                </button>
-                <button onclick="switchStickerCat('compliments')" id="sticker-cat-compliments" class="sticker-cat-btn px-3 py-1.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-[11px] font-bold whitespace-nowrap">
-                    ✨ Elogios
-                </button>
-            </div>
-
-            <!-- Stickers Grid -->
-            <div id="stickers-grid" class="grid grid-cols-2 gap-2.5 overflow-y-auto pr-1 flex-grow">
-                <!-- Populated dynamically -->
-            </div>
-
-            <!-- Footer Info -->
-            <div class="pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex justify-between items-center flex-shrink-0">
-                <span><i class="fa-solid fa-bolt text-amber-400 mr-1"></i> Bônus de Sintonia Ativo</span>
-                <span class="text-amber-400 font-bold" id="sticker-user-points">+120 PTS de Casal</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: PHOTO PICKER SELECTION (PROFILE / CHAT) -->
-    <div id="photo-picker-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-4 hidden animate-in fade-in duration-200">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-xs rounded-3xl p-5 space-y-4 shadow-2xl relative">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 id="photo-picker-title" class="font-bold text-sm text-white">Alterar Foto de Perfil</h3>
-                <button onclick="closePhotoPickerModal()" class="text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-            <div class="space-y-2">
-                <button onclick="triggerPhotoSource('camera')" class="w-full py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 flex items-center gap-3 transition-all">
-                    <div class="w-8 h-8 rounded-full bg-brand-pink/20 text-brand-pink flex items-center justify-center">
-                        <i class="fa-solid fa-camera text-sm"></i>
-                    </div>
-                    <span>Tirar Foto da Câmera</span>
-                </button>
-                <button onclick="triggerPhotoSource('gallery')" class="w-full py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 flex items-center gap-3 transition-all">
-                    <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center">
-                        <i class="fa-solid fa-images text-sm"></i>
-                    </div>
-                    <span>Escolher da Galeria</span>
-                </button>
-                <button onclick="triggerPhotoSource('url')" class="w-full py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs border border-slate-700 flex items-center gap-3 transition-all">
-                    <div class="w-8 h-8 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center">
-                        <i class="fa-solid fa-link text-sm"></i>
-                    </div>
-                    <span>Colar Link URL</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL 1: "IT'S A MATCH!" POPUP -->
-    <div id="match-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 flex flex-col items-center justify-center p-6 hidden animate-in fade-in zoom-in duration-300">
+    <!-- MATCH POPUP -->
+    <div id="match-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 flex flex-col items-center justify-center p-6 hidden">
         <div class="text-center space-y-2 mb-8">
             <h1 class="text-4xl font-black italic bg-brand-gradient bg-clip-text text-transparent transform -rotate-3 tracking-wider">It's a Match!</h1>
-            <p class="text-xs text-slate-300" id="match-modal-subtitle">Você e Camila se curtiram mutuamente.</p>
+            <p class="text-xs text-slate-300" id="match-modal-subtitle">Vocês se curtiram mutuamente.</p>
         </div>
-
-        <!-- Overlapping Photos -->
         <div class="flex items-center justify-center -space-x-8 mb-10">
-            <img id="match-modal-user-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-slate-950 shadow-2xl transform -rotate-6">
-            <img id="match-modal-target-img" src="" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-slate-950 shadow-2xl transform rotate-6">
+            <img id="match-modal-user-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" class="w-28 h-28 rounded-full object-cover border-4 border-slate-950 shadow-2xl transform -rotate-6">
+            <img id="match-modal-target-img" src="" class="w-28 h-28 rounded-full object-cover border-4 border-slate-950 shadow-2xl transform rotate-6">
         </div>
-
-        <!-- Actions -->
         <div class="w-full max-w-xs space-y-3">
-            <button onclick="openChatFromMatchModal()" class="w-full py-3.5 rounded-full bg-brand-gradient text-white font-extrabold text-sm shadow-xl shadow-brand-pink/30 hover:scale-105 transition-all">
-                ENVIAR MENSAGEM AGORA
-            </button>
-            <button onclick="closeMatchModal()" class="w-full py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-sm border border-slate-800 transition-all">
-                CONTINUAR NAVEGANDO
-            </button>
+            <button onclick="openChatFromMatchModal()" class="w-full py-3.5 rounded-full bg-brand-gradient text-white font-extrabold text-sm shadow-xl shadow-brand-pink/30">ENVIAR MENSAGEM</button>
+            <button onclick="closeMatchModal()" class="w-full py-3.5 rounded-full bg-slate-900 text-slate-300 font-bold text-sm border border-slate-800">CONTINUAR NAVEGANDO</button>
         </div>
     </div>
 
-    <!-- MODAL 2: INTERACTIVE VIDEO CALL OVERLAY -->
+    <!-- VIDEOCALL MODAL -->
     <div id="videocall-modal" class="fixed inset-0 bg-slate-950 z-50 flex flex-col hidden">
-        <!-- Main Remote Video Box -->
         <div class="relative flex-grow bg-slate-900 overflow-hidden flex items-center justify-center">
-            <!-- Simulated Remote Video Stream -->
-            <video id="remote-video-element" class="w-full h-full object-cover" loop playsinline muted>
+            <video id="remote-video-element" class="w-full h-full object-cover" loop playsinline autoplay muted>
                 <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
             </video>
-
-            <!-- Call Overlay Status -->
             <div class="absolute top-6 left-6 z-20 bg-slate-950/70 backdrop-blur-md border border-slate-800 px-4 py-2 rounded-full flex items-center space-x-2">
                 <span class="w-2.5 h-2.5 bg-red-500 rounded-full animate-ping"></span>
                 <span id="videocall-timer" class="text-xs font-mono font-bold text-white">00:00</span>
                 <span class="text-slate-500 text-xs">|</span>
                 <span id="videocall-partner-name" class="text-xs font-bold text-slate-200">Camila</span>
             </div>
-
-            <!-- User Local Video (Webcam Preview) -->
-            <div class="absolute bottom-6 right-6 w-32 h-44 bg-slate-950 rounded-2xl border-2 border-brand-pink shadow-2xl overflow-hidden z-20">
-                <video id="local-webcam-element" class="w-full h-full object-cover transform -scale-x-100" autoplay playsinline muted></video>
-                <div id="webcam-fallback-msg" class="hidden absolute inset-0 bg-slate-900 flex flex-col items-center justify-center p-2 text-center">
-                    <i class="fa-solid fa-user-slash text-slate-500 text-xl mb-1"></i>
-                    <span class="text-[9px] text-slate-400">Câmera indisponível</span>
-                </div>
-            </div>
         </div>
-
-        <!-- Video Call Bottom Control Bar -->
         <div class="h-24 bg-slate-950 border-t border-slate-900 flex items-center justify-center space-x-6 px-6 z-30">
-            <button onclick="toggleMuteMic()" id="btn-toggle-mic" class="w-12 h-12 rounded-full bg-slate-800 text-white flex items-center justify-center hover:bg-slate-700 transition-all">
-                <i class="fa-solid fa-microphone text-base"></i>
-            </button>
-            <button onclick="endVideoCall()" class="w-16 h-16 rounded-full bg-red-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-red-600/40 hover:scale-105 transition-all">
+            <button onclick="endVideoCall()" class="w-16 h-16 rounded-full bg-red-600 text-white flex items-center justify-center text-2xl shadow-lg">
                 <i class="fa-solid fa-phone-slash"></i>
-            </button>
-            <button onclick="toggleLocalCam()" id="btn-toggle-cam" class="w-12 h-12 rounded-full bg-slate-800 text-white flex items-center justify-center hover:bg-slate-700 transition-all">
-                <i class="fa-solid fa-video text-base"></i>
             </button>
         </div>
     </div>
 
-    <!-- MODAL 3: VIP PAYWALL & CHECKOUT -->
+    <!-- MODAL: VIP PAYWALL INTELIGENTE -->
     <div id="vip-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-950 border border-amber-500/40 max-w-sm w-full rounded-3xl p-6 space-y-6 shadow-2xl relative overflow-hidden">
-            <!-- Modal Header -->
+        <div class="bg-slate-950 border border-amber-500/40 max-w-sm w-full rounded-3xl p-6 space-y-5 shadow-2xl relative overflow-hidden">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                     <div class="w-8 h-8 rounded-xl bg-gold-gradient flex items-center justify-center text-slate-950 font-black">
@@ -694,84 +423,49 @@
                 </button>
             </div>
 
-            <!-- Subscription Plan Selector -->
-            <div class="space-y-3">
-                <div onclick="selectPlan('monthly')" id="plan-monthly" class="plan-card border-2 border-amber-400 bg-amber-500/10 p-4 rounded-2xl flex justify-between items-center cursor-pointer transition-all">
-                    <div>
-                        <div class="flex items-center gap-2">
+            <!-- Etapa 1: Seleção de Plano -->
+            <div id="vip-step-plans" class="space-y-4">
+                <div class="space-y-3">
+                    <div onclick="selectPlan('monthly')" id="plan-monthly" class="plan-card border-2 border-amber-400 bg-amber-500/10 p-4 rounded-2xl flex justify-between items-center cursor-pointer">
+                        <div>
                             <span class="font-black text-sm text-white">Plano Mensal</span>
-                            <span class="bg-amber-400 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded-full">POPULAR</span>
+                            <p class="text-[11px] text-slate-400">Renovação automática</p>
                         </div>
-                        <p class="text-[11px] text-slate-400 mt-0.5">Renovação mensal automática</p>
+                        <span class="text-amber-400 font-extrabold text-sm">R$ 29,90/mês</span>
                     </div>
-                    <span class="text-amber-400 font-extrabold text-sm">R$ 29,90/mês</span>
                 </div>
+                <button onclick="proceedToCheckout()" class="w-full py-3.5 rounded-2xl bg-gold-gradient text-slate-950 font-black text-xs shadow-xl shadow-amber-500/20 hover:scale-[1.02] transition-all">
+                    CONTINUAR PARA PAGAMENTO
+                </button>
+            </div>
 
-                <div onclick="selectPlan('annual')" id="plan-annual" class="plan-card border border-slate-800 bg-slate-900/60 p-4 rounded-2xl flex justify-between items-center cursor-pointer transition-all">
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span class="font-bold text-sm text-slate-200">Plano Anual</span>
-                            <span class="bg-emerald-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">ECONOMIZE 40%</span>
+            <!-- Etapa 2: Aguardando Pagamento Pix Inteligente -->
+            <div id="vip-step-payment" class="space-y-4 hidden text-center">
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-3">
+                    <span class="text-xs text-amber-400 font-bold block">Chave Pix (Copia e Cola):</span>
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-[11px] text-slate-300 font-mono select-all">
+                        09726561116
+                    </div>
+                    <div id="pix-status-container" class="pt-1">
+                        <div class="flex items-center justify-center space-x-2 text-amber-400 font-bold text-xs animate-pulse">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i>
+                            <span>Aguardando compensação do Pix...</span>
                         </div>
-                        <p class="text-[11px] text-slate-400 mt-0.5">R$ 17,90 x 12 meses</p>
+                        <p class="text-[10px] text-slate-400 mt-1">Expira em: <span id="pix-countdown" class="text-red-400 font-bold">05:00</span></p>
                     </div>
-                    <span class="text-slate-200 font-bold text-sm">R$ 214,80</span>
                 </div>
-            </div>
 
-            <!-- Payment Method Option -->
-            <div class="space-y-2">
-                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Forma de Pagamento</label>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="setPayMethod('pix')" id="pay-btn-pix" class="py-2.5 rounded-xl border border-emerald-500/60 bg-emerald-500/10 text-emerald-400 font-bold text-xs flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-pix text-sm"></i> PIX Instantâneo
+                <div class="space-y-2">
+                    <button onclick="cancelVipOrder()" class="w-full py-2.5 rounded-2xl bg-slate-900 text-red-400 font-bold text-xs border border-slate-800 hover:bg-slate-800 transition-all">
+                        Cancelar Pedido
                     </button>
-                    <button onclick="setPayMethod('card')" id="pay-btn-card" class="py-2.5 rounded-xl border border-slate-800 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-credit-card text-sm"></i> Cartão
-                    </button>
-                </div>
-            </div>
-
-            <!-- Checkout Action Button -->
-            <button onclick="processVipCheckout()" id="btn-confirm-pay" class="w-full py-3.5 rounded-2xl bg-gold-gradient text-slate-950 font-black text-xs shadow-xl shadow-amber-500/20 hover:scale-[1.02] transition-all">
-                CONFIRMAR E ASSINAR AGORA
-            </button>
-        </div>
-    </div>
-
-    <!-- MODAL 4: FULL PROFILE DETAIL VIEW -->
-    <div id="profile-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden overflow-y-auto">
-        <div class="bg-slate-900 border border-slate-800 max-w-sm w-full rounded-3xl p-5 space-y-4 relative shadow-2xl my-auto">
-            <button onclick="closeProfileModal()" class="absolute top-4 right-4 bg-slate-950/80 text-white w-8 h-8 rounded-full flex items-center justify-center z-20">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <!-- Main Photo Carousel Preview -->
-            <div class="relative h-72 rounded-2xl overflow-hidden">
-                <img id="detail-profile-img" src="" class="w-full h-full object-cover">
-                <div class="absolute bottom-3 left-3 bg-slate-950/70 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white flex items-center">
-                    <i class="fa-solid fa-location-dot text-brand-pink mr-1.5"></i> <span id="detail-profile-dist"></span>
-                </div>
-            </div>
-
-            <div>
-                <h3 id="detail-profile-name-age" class="text-xl font-black text-white">---</h3>
-                <p id="detail-profile-bio" class="text-xs text-slate-300 mt-2 leading-relaxed">---</p>
-            </div>
-
-            <!-- Photo Gallery Grid -->
-            <div>
-                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Galeria de Fotos</h4>
-                <div id="detail-profile-gallery" class="grid grid-cols-3 gap-2">
-                    <!-- Populated dynamically -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT -->
     <script>
-        // --- SYNTHESIZED SOUND EFFECTS (Web Audio API) ---
         let audioEnabled = true;
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -784,370 +478,89 @@
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 const now = audioCtx.currentTime;
-
                 if (type === 'like') {
-                    osc.type = 'triangle';
                     osc.frequency.setValueAtTime(400, now);
                     osc.frequency.exponentialRampToValueAtTime(800, now + 0.2);
                     gain.gain.setValueAtTime(0.25, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-                    osc.start(now); osc.stop(now + 0.2);
                 } else if (type === 'match') {
-                    osc.type = 'sine';
                     osc.frequency.setValueAtTime(523.25, now);
-                    osc.frequency.setValueAtTime(659.25, now + 0.15);
                     osc.frequency.setValueAtTime(783.99, now + 0.3);
                     gain.gain.setValueAtTime(0.3, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
-                    osc.start(now); osc.stop(now + 0.5);
-                } else if (type === 'msg') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(750, now);
-                    osc.frequency.exponentialRampToValueAtTime(1100, now + 0.12);
-                    gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
-                    osc.start(now); osc.stop(now + 0.12);
-                } else if (type === 'card' || type === 'sticker') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(450, now);
-                    osc.frequency.exponentialRampToValueAtTime(900, now + 0.18);
-                    gain.gain.setValueAtTime(0.25, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
-                    osc.start(now); osc.stop(now + 0.18);
                 }
+                osc.start(now); osc.stop(now + 0.5);
             } catch(e) {}
         }
 
         function toggleAudio() {
             audioEnabled = !audioEnabled;
-            const btn = document.getElementById('audio-toggle-btn');
-            btn.innerHTML = audioEnabled ? '<i class="fa-solid fa-volume-high text-xs"></i>' : '<i class="fa-solid fa-volume-xmark text-xs text-red-400"></i>';
         }
 
-        // --- SEED PROFILES DATA ---
         const initialProfiles = [
             {
-                id: 1,
-                name: "Camila",
-                age: 24,
-                distance: "3 km de você",
-                verified: true,
-                bio: "Arquiteta de dia & DJ nos fins de semana 🎧 Amo gastronomia, vinhos e explorar lugares novos.",
-                tags: ["Música", "Arquitetura", "Café", "Vinhos"],
+                id: 1, name: "Camila", age: 24, distance: "3 km", verified: true,
+                bio: "Arquiteta & DJ 🎧 Amo gastronomia e vinhos.",
                 image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=800",
-                gallery: [
-                    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=400",
-                    "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=400",
-                    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400"
-                ],
-                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-                willMatch: true,
-                autoReplies: [
-                    "Oii! Adorei que demos match! 😊",
-                    "Tudo ótimo por aqui e com você? Me conta qual seu tipo de programa favorito no fim de semana!",
-                    "Amo essa ideia! Bora organizar um café sim! ☕"
-                ]
-            },
-            {
-                id: 2,
-                name: "Beatriz",
-                age: 23,
-                distance: "6 km de você",
-                verified: true,
-                bio: "Médica residente. Buscando alguém leve para fugir da rotina intensa de plantões.",
-                tags: ["Medicina", "Academia", "Açaí", "Séries"],
-                image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=800",
-                gallery: [
-                    "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=400",
-                    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400"
-                ],
-                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-                willMatch: true,
-                autoReplies: [
-                    "Oieee! Como está seu dia?",
-                    "Acabei de sair do hospital! Nada como um papo bom para relaxar."
-                ]
-            },
-            {
-                id: 3,
-                name: "Isabella",
-                age: 26,
-                distance: "9 km de você",
-                verified: true,
-                bio: "Fotógrafa e viajante. Já visitei 15 países e procurando meu próximo parceiro de aventuras.",
-                tags: ["Fotografia", "Viagens", "Trilhas"],
-                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=800",
-                gallery: [
-                    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400"
-                ],
-                video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-                willMatch: true,
-                autoReplies: [
-                    "Hey! Que vibe boa seu perfil!",
-                    "Qual seu lugar favorito no mundo até hoje?"
-                ]
+                willMatch: true, autoReplies: ["Oii! Adorei que demos match! 😊"]
             }
         ];
 
-        // --- STICKERS DATABASE WITH VALUES / REWARDS ---
-        const stickersDatabase = {
-            romance: [
-                { id: 's1', icon: '💖', title: 'Coração Apaixonado', points: 15, valueText: '+15 PTS Sintonia', badge: 'Popular', bg: 'from-pink-500/20 to-red-500/20' },
-                { id: 's2', icon: '🌹', title: 'Rosa Romântica', points: 25, valueText: '+25 PTS Sintonia', badge: 'Romance', bg: 'from-rose-500/20 to-pink-500/20' },
-                { id: 's3', icon: '👩‍❤️‍💋‍👨', title: 'Beijo Apaixonado', points: 40, valueText: '+40 PTS Sintonia', badge: 'Quente', bg: 'from-purple-500/20 to-pink-500/20' },
-                { id: 's4', icon: '💌', title: 'Carta do Coração', points: 20, valueText: '+20 PTS Sintonia', badge: 'Fofo', bg: 'from-amber-500/20 to-pink-500/20' }
-            ],
-            flirt: [
-                { id: 's5', icon: '🔥', title: 'Chama de Flerte', points: 30, valueText: '+30 PTS Sintonia', badge: 'Fogo', bg: 'from-orange-500/20 to-red-500/20' },
-                { id: 's6', icon: '😉', title: 'Pisadinha Marota', points: 15, valueText: '+15 PTS Sintonia', badge: 'Leve', bg: 'from-amber-500/20 to-yellow-500/20' },
-                { id: 's7', icon: '😈', title: 'Provocante VIP', points: 50, valueText: '+50 PTS Sintonia', badge: 'VIP Hot', bg: 'from-purple-600/20 to-indigo-600/20' },
-                { id: 's8', icon: '👀', title: 'De Olho em Você', points: 20, valueText: '+20 PTS Sintonia', badge: 'Curioso', bg: 'from-sky-500/20 to-blue-500/20' }
-            ],
-            gifts: [
-                { id: 's9', icon: '☕', title: 'Café de Encontro', points: 35, valueText: 'R$ 10 Presente (+35 PTS)', badge: 'Encontro', bg: 'from-amber-700/20 to-amber-500/20' },
-                { id: 's10', icon: '🍷', title: 'Taça de Vinho VIP', points: 60, valueText: 'R$ 25 Presente (+60 PTS)', badge: 'VIP Deluxe', bg: 'from-purple-900/30 to-pink-600/20' },
-                { id: 's11', icon: '💎', title: 'Diamante Eterno', points: 100, valueText: 'R$ 50 Presente (+100 PTS)', badge: 'SUPER VIP', bg: 'from-sky-400/20 to-indigo-500/20' },
-                { id: 's12', icon: '🧸', title: 'Urso do Amor', points: 45, valueText: 'R$ 15 Presente (+45 PTS)', badge: 'Carinho', bg: 'from-pink-400/20 to-purple-400/20' }
-            ],
-            compliments: [
-                { id: 's13', icon: '🌟', title: 'Você é um Espetáculo', points: 25, valueText: '+25 PTS Sintonia', badge: 'Elogio', bg: 'from-yellow-500/20 to-amber-500/20' },
-                { id: 's14', icon: '👑', title: 'Rainha do Match', points: 50, valueText: '+50 PTS Sintonia', badge: 'Crown', bg: 'from-amber-400/20 to-yellow-300/20' },
-                { id: 's15', icon: '✨', title: 'Brilho Único', points: 30, valueText: '+30 PTS Sintonia', badge: 'Mágico', bg: 'from-purple-400/20 to-sky-400/20' }
-            ]
-        };
-
-        // --- GAME CARDS DATABASE ---
-        const gameCardsData = {
-            light: [
-                { type: "VERDADE", prompt: "Se você pudesse viajar para qualquer lugar do mundo amanhã com seu match, para onde iriam?" },
-                { type: "DESAFIO", prompt: "Envie um áudio de 5 segundos imitando seu emoji favorito!" },
-                { type: "VERDADE", prompt: "Qual foi o encontro mais engraçado ou inusitado que você já teve?" },
-                { type: "VERDADE", prompt: "Qual é a sua refeição dos sonhos para um sábado à noite em casa?" }
-            ],
-            deep: [
-                { type: "VERDADE", prompt: "Qual é a sua memória de infância mais especial que moldou quem você é hoje?" },
-                { type: "VERDADE", prompt: "O que você mais valoriza em uma parceria de relacionamento a longo prazo?" },
-                { type: "VERDADE", prompt: "Qual sonho você ainda quer realizar nos próximos 3 anos?" }
-            ],
-            spicy: [
-                { type: "VERDADE", prompt: "Qual foi o primeiro detalhe do meu perfil que mais chamou sua atenção?" },
-                { type: "DESAFIO", prompt: "Mande um elogio bem criativo usando apenas 3 palavras!" },
-                { type: "VERDADE", prompt: "Qual seu estilo favorito de encontro de romance: jantar à luz de velas ou praia ao pôr do sol?" }
-            ]
-        };
-
-        const mostLikelyQuestions = [
-            "Quem é mais provável de esquecer a data do primeiro encontro?",
-            "Quem é mais provável de dormir durante um filme no cinema?",
-            "Quem é mais provável de propor uma viagem de última hora no fim de semana?",
-            "Quem é mais provável de gastar todo o salário em comida fofa?"
-        ];
-
-        const affinityQuizQuestions = [
-            {
-                title: "Qual seria o encontro perfeito para um sábado à noite?",
-                options: ["🍷 Jantar romântico à luz de velas", "🍕 Pizza, vinho e maratona de séries", "🎶 Show ao vivo ou balada", "🌌 Piquenique noturno vendo as estrelas"]
-            },
-            {
-                title: "Qual é a sua linguagem do amor principal?",
-                options: ["💬 Palavras de Afirmação", "🎁 Presentes & Surpresas", "🤝 Tempo de Qualidade Junto", "💆 Touch / Carinho Físico"]
-            }
-        ];
-
-        // --- GLOBAL APP STATE ---
         let currentProfiles = [...initialProfiles];
         let matchesList = [];
         let activeChatMatchId = null;
         let isVipUser = false;
-        let callTimerInterval = null;
-        let callSeconds = 0;
-        let localMediaStream = null;
-        let currentPhotoContext = 'profile';
-        let activeStickerCat = 'romance';
+        let pixTimer = null;
+        let pixCheckInterval = null;
+        let orderActive = false;
 
-        // Game State
-        let affinityPoints = 120;
-        let activeCardCategory = 'light';
-        let currentCardIndex = 0;
-        let currentMostLikelyIdx = 0;
-        let currentQuizIdx = 0;
-
-        let myProfile = {
-            name: "Alex Rivera",
-            age: 26,
-            image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400"
-        };
-
-        // --- INITIALIZATION ---
         window.onload = function() {
             renderCardStack();
-            renderExploreVideoReels();
-            renderAffinityQuiz();
-            renderStickersGrid();
         };
 
-        // --- NAVIGATION TABS ---
         function switchTab(tab) {
             document.querySelectorAll('.tab-view').forEach(v => v.classList.add('hidden'));
             document.querySelectorAll('.nav-item').forEach(b => b.className = 'nav-item text-slate-500 hover:text-slate-300 transition-all flex flex-col items-center');
-
             document.getElementById(`view-${tab}`).classList.remove('hidden');
             const btn = document.getElementById(`nav-btn-${tab}`);
             if(btn) btn.className = 'nav-item text-brand-pink transition-all flex flex-col items-center';
-
-            if (tab === 'games') {
-                updateGamePartnerInfo();
-            }
         }
 
-        // --- CARDS RENDER & DRAG ---
         function renderCardStack() {
             const stackContainer = document.getElementById('cards-stack');
-            const existingCards = stackContainer.querySelectorAll('.swipe-card');
-            existingCards.forEach(c => c.remove());
-
+            stackContainer.querySelectorAll('.swipe-card').forEach(c => c.remove());
             const emptyMsg = document.getElementById('empty-stack-msg');
 
             if (currentProfiles.length === 0) {
                 emptyMsg.classList.remove('hidden');
                 emptyMsg.classList.add('flex');
                 return;
-            } else {
-                emptyMsg.classList.add('hidden');
-                emptyMsg.classList.remove('flex');
             }
-
-            const visibleProfiles = currentProfiles.slice(0, 3).reverse();
-            visibleProfiles.forEach((profile, index) => {
-                const isTop = index === visibleProfiles.length - 1;
-                const card = createCardElement(profile, isTop);
-                stackContainer.appendChild(card);
-            });
-        }
-
-        function createCardElement(profile, isTop) {
+            emptyMsg.classList.add('hidden');
+            const profile = currentProfiles[0];
             const card = document.createElement('div');
-            card.className = `swipe-card absolute inset-0 w-full h-full bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 flex flex-col justify-between ${isTop ? 'z-20 cursor-grab' : 'z-10 scale-95 opacity-60 pointer-events-none'}`;
-            card.dataset.id = profile.id;
-
+            card.className = `swipe-card absolute inset-0 w-full h-full bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 flex flex-col justify-between z-20`;
             card.innerHTML = `
-                <div class="stamp-overlay stamp-like">LIKE</div>
-                <div class="stamp-overlay stamp-dislike">NOPE</div>
-                <div class="stamp-overlay stamp-superlike">SUPER LIKE</div>
-
                 <div class="absolute inset-0 z-0">
                     <img src="${profile.image}" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
                 </div>
-
                 <div class="relative z-10 p-4 flex justify-between items-start">
-                    <span class="bg-slate-950/60 backdrop-blur-md border border-slate-700/50 text-slate-200 text-xs px-3 py-1 rounded-full font-semibold">
-                        <i class="fa-solid fa-location-dot text-brand-pink mr-1"></i> ${profile.distance}
-                    </span>
-                    <button onclick="openProfileModal(${profile.id})" class="w-8 h-8 rounded-full bg-slate-950/60 backdrop-blur-md text-white flex items-center justify-center border border-slate-700">
-                        <i class="fa-solid fa-info text-xs"></i>
-                    </button>
+                    <span class="bg-slate-950/60 backdrop-blur-md text-slate-200 text-xs px-3 py-1 rounded-full">${profile.distance}</span>
                 </div>
-
                 <div class="relative z-10 p-5 space-y-2 text-left">
-                    <div class="flex items-baseline space-x-2">
-                        <h2 class="text-3xl font-black text-white">${profile.name}</h2>
-                        <span class="text-2xl font-normal text-slate-300">${profile.age}</span>
-                    </div>
-
-                    <p class="text-xs text-slate-300 line-clamp-2 font-medium">${profile.bio}</p>
-
-                    <div class="flex flex-wrap gap-1.5 pt-1">
-                        ${profile.tags.map(t => `<span class="bg-slate-800/80 backdrop-blur-md text-slate-200 text-[10px] font-semibold px-2.5 py-1 rounded-lg border border-slate-700/60">${t}</span>`).join('')}
-                    </div>
+                    <h2 class="text-3xl font-black text-white">${profile.name}, ${profile.age}</h2>
+                    <p class="text-xs text-slate-300">${profile.bio}</p>
                 </div>
             `;
-
-            if (isTop) attachGestureListeners(card, profile);
-            return card;
-        }
-
-        function attachGestureListeners(card, profile) {
-            let startX = 0, startY = 0, currentX = 0, currentY = 0;
-            let isDragging = false;
-
-            const stampLike = card.querySelector('.stamp-like');
-            const stampDislike = card.querySelector('.stamp-dislike');
-            const stampSuper = card.querySelector('.stamp-superlike');
-
-            function onStart(e) {
-                isDragging = true;
-                card.classList.add('dragging');
-                startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-                startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-            }
-
-            function onMove(e) {
-                if(!isDragging) return;
-                currentX = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - startX;
-                currentY = (e.type.includes('touch') ? e.touches[0].clientY : e.clientY) - startY;
-
-                card.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(${currentX * 0.08}deg)`;
-
-                if (currentX > 40) stampLike.style.opacity = Math.min(currentX / 120, 1);
-                else if (currentX < -40) stampDislike.style.opacity = Math.min(-currentX / 120, 1);
-                else if (currentY < -50) stampSuper.style.opacity = Math.min(-currentY / 120, 1);
-            }
-
-            function onEnd() {
-                if(!isDragging) return;
-                isDragging = false;
-                card.classList.remove('dragging');
-
-                if (currentX > 110) swipeCard(card, 'right', profile);
-                else if (currentX < -110) swipeCard(card, 'left', profile);
-                else if (currentY < -110) swipeCard(card, 'up', profile);
-                else {
-                    card.style.transform = 'translate3d(0,0,0) rotate(0deg)';
-                    stampLike.style.opacity = 0; stampDislike.style.opacity = 0; stampSuper.style.opacity = 0;
-                }
-                currentX = 0; currentY = 0;
-            }
-
-            card.addEventListener('mousedown', onStart);
-            window.addEventListener('mousemove', onMove);
-            window.addEventListener('mouseup', onEnd);
-            card.addEventListener('touchstart', onStart, {passive: true});
-            window.addEventListener('touchmove', onMove, {passive: true});
-            window.addEventListener('touchend', onEnd);
+            stackContainer.appendChild(card);
         }
 
         function handleBtnAction(action) {
-            const topCard = document.querySelector('.swipe-card.z-20');
-            if(!topCard) return;
-            const profile = currentProfiles.find(p => p.id === parseInt(topCard.dataset.id));
-
-            if(action === 'like') swipeCard(topCard, 'right', profile);
-            else if(action === 'dislike') swipeCard(topCard, 'left', profile);
-            else if(action === 'superlike') swipeCard(topCard, 'up', profile);
-            else if(action === 'rewind') {
-                resetCardsStack();
-            }
-        }
-
-        function swipeCard(card, dir, profile) {
-            let tx = 0, ty = 0, rot = 0;
-            if(dir === 'right') { tx = 600; rot = 25; playSound('like'); }
-            else if(dir === 'left') { tx = -600; rot = -25; }
-            else if(dir === 'up') { ty = -700; playSound('like'); }
-
-            card.style.transition = 'transform 0.35s ease-out, opacity 0.3s ease';
-            card.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${rot}deg)`;
-            card.style.opacity = '0';
-
-            setTimeout(() => {
-                currentProfiles = currentProfiles.filter(p => p.id !== profile.id);
-                renderCardStack();
-
-                if((dir === 'right' || dir === 'up') && profile.willMatch) {
-                    triggerMatchModal(profile);
-                }
-            }, 300);
+            if(currentProfiles.length === 0) return;
+            const profile = currentProfiles.shift();
+            renderCardStack();
+            if(action === 'like' && profile.willMatch) triggerMatchModal(profile);
         }
 
         function resetCardsStack() {
@@ -1155,618 +568,179 @@
             renderCardStack();
         }
 
-        // --- MATCH & CONVERSATIONS LOGIC ---
         function triggerMatchModal(profile) {
             playSound('match');
-            confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
-
+            confetti({ particleCount: 70, spread: 60 });
             if (!matchesList.some(m => m.id === profile.id)) {
-                matchesList.push({
-                    ...profile,
-                    messages: [
-                        { sender: 'them', text: profile.autoReplies[0], time: 'Agora' }
-                    ]
-                });
+                matchesList.push({ ...profile, messages: [{ sender: 'them', text: profile.autoReplies[0], time: 'Agora' }] });
                 updateMatchesUI();
             }
-
             document.getElementById('match-modal-target-img').src = profile.image;
-            document.getElementById('match-modal-subtitle').innerText = `Você e ${profile.name} se curtiram mutuamente!`;
             document.getElementById('match-modal').classList.remove('hidden');
             document.getElementById('match-badge').classList.remove('hidden');
         }
 
-        function closeMatchModal() {
-            document.getElementById('match-modal').classList.add('hidden');
-        }
-
-        function openChatFromMatchModal() {
-            closeMatchModal();
-            switchTab('matches');
-            if (matchesList.length > 0) openChatScreen(matchesList[matchesList.length - 1].id);
-        }
+        function closeMatchModal() { document.getElementById('match-modal').classList.add('hidden'); }
+        function openChatFromMatchModal() { closeMatchModal(); switchTab('matches'); if(matchesList.length) openChatScreen(matchesList[0].id); }
 
         function updateMatchesUI() {
             const carousel = document.getElementById('new-matches-carousel');
             const conversations = document.getElementById('conversations-list');
             document.getElementById('match-count-badge').innerText = `${matchesList.length} Conexões`;
-
-            if (matchesList.length === 0) {
-                carousel.innerHTML = '<span class="text-xs text-slate-500 py-2">Nenhum match ainda. Continue curtindo!</span>';
-                conversations.innerHTML = '<span class="text-xs text-slate-500 py-2 block text-center">Sua caixa de mensagens está vazia.</span>';
-                return;
-            }
+            if (matchesList.length === 0) return;
 
             carousel.innerHTML = matchesList.map(m => `
-                <div onclick="openChatScreen(${m.id})" class="flex flex-col items-center space-y-1 cursor-pointer flex-shrink-0">
-                    <div class="w-14 h-14 rounded-full p-0.5 bg-brand-gradient shadow-md hover:scale-105 transition-all">
-                        <img src="${m.image}" class="w-full h-full rounded-full object-cover border-2 border-slate-950">
+                <div onclick="openChatScreen(${m.id})" class="flex flex-col items-center space-y-1 cursor-pointer">
+                    <div class="w-14 h-14 rounded-full p-0.5 bg-brand-gradient">
+                        <img src="${m.image}" class="w-full h-full rounded-full object-cover">
                     </div>
                     <span class="text-[11px] font-bold text-slate-200">${m.name}</span>
                 </div>
             `).join('');
 
-            conversations.innerHTML = matchesList.map(m => {
-                const lastMsg = m.messages[m.messages.length - 1] || { text: 'Inicie a conversa...', time: '' };
-                return `
-                    <div onclick="openChatScreen(${m.id})" class="flex items-center space-x-3 p-3 rounded-2xl bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800/60 transition-all cursor-pointer">
-                        <img src="${m.image}" class="w-12 h-12 rounded-full object-cover border border-slate-700">
-                        <div class="flex-grow min-w-0">
-                            <div class="flex justify-between items-baseline">
-                                <h4 class="font-bold text-sm text-white truncate">${m.name}</h4>
-                                <span class="text-[10px] text-slate-500">${lastMsg.time}</span>
-                            </div>
-                            <p class="text-xs text-slate-400 truncate mt-0.5">${lastMsg.isSticker ? '✨ Enviou uma Figurinha VIP' : lastMsg.text}</p>
-                        </div>
+            conversations.innerHTML = matchesList.map(m => `
+                <div onclick="openChatScreen(${m.id})" class="flex items-center space-x-3 p-3 rounded-2xl bg-slate-900 cursor-pointer">
+                    <img src="${m.image}" class="w-12 h-12 rounded-full object-cover">
+                    <div>
+                        <h4 class="font-bold text-sm text-white">${m.name}</h4>
+                        <p class="text-xs text-slate-400">${m.messages[m.messages.length-1].text}</p>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `).join('');
         }
 
         function openChatScreen(matchId) {
             activeChatMatchId = matchId;
             const match = matchesList.find(m => m.id === matchId);
-            if (!match) return;
-
             document.getElementById('chat-user-avatar').src = match.image;
             document.getElementById('chat-user-name').innerText = match.name;
             document.getElementById('active-chat-screen').classList.remove('hidden');
             renderChatMessages();
         }
 
-        function closeChatScreen() {
-            document.getElementById('active-chat-screen').classList.add('hidden');
-            activeChatMatchId = null;
-        }
+        function closeChatScreen() { document.getElementById('active-chat-screen').classList.add('hidden'); }
 
         function renderChatMessages() {
             const match = matchesList.find(m => m.id === activeChatMatchId);
-            if (!match) return;
-
+            if(!match) return;
             const body = document.getElementById('chat-messages-body');
-            body.innerHTML = match.messages.map(msg => {
-                if (msg.isSticker) {
-                    return `
-                        <div class="flex flex-col ${msg.sender === 'me' ? 'items-end' : 'items-start'}">
-                            <div class="relative max-w-[80%] rounded-2xl p-3 bg-gradient-to-br ${msg.stickerBg || 'from-purple-900/50 to-slate-900'} border border-amber-500/40 shadow-xl flex flex-col items-center text-center space-y-1.5 my-1">
-                                <span class="text-4xl animate-sticker my-1">${msg.stickerIcon}</span>
-                                <span class="font-black text-xs text-white">${msg.stickerTitle}</span>
-                                <span class="px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-extrabold text-[9px] border border-amber-400/30 flex items-center gap-1">
-                                    <i class="fa-solid fa-crown text-[8px]"></i> ${msg.stickerValue}
-                                </span>
-                            </div>
-                            <span class="text-[9px] text-slate-500 mt-0.5 px-1">${msg.time}</span>
-                        </div>
-                    `;
-                }
-
-                return `
-                    <div class="flex flex-col ${msg.sender === 'me' ? 'items-end' : 'items-start'}">
-                        <div class="max-w-[85%] rounded-2xl px-4 py-2.5 text-xs ${msg.sender === 'me' ? 'bg-brand-gradient text-white rounded-br-none shadow-md' : 'bg-slate-900 text-slate-200 rounded-bl-none border border-slate-800'}">
-                            ${msg.isGame ? `<div class="font-bold text-amber-300 text-[10px] mb-1 uppercase flex items-center gap-1"><i class="fa-solid fa-gamepad"></i> Desafio de Casal LoveConnect</div>` : ''}
-                            ${msg.isImage ? `<img src="${msg.text}" class="rounded-xl max-w-full h-auto my-1 max-h-60 object-cover">` : msg.text}
-                        </div>
-                        <span class="text-[9px] text-slate-500 mt-1 px-1">${msg.time}</span>
+            body.innerHTML = match.messages.map(msg => `
+                <div class="flex flex-col ${msg.sender === 'me' ? 'items-end' : 'items-start'}">
+                    <div class="max-w-[85%] rounded-2xl px-4 py-2.5 text-xs ${msg.sender === 'me' ? 'bg-brand-gradient text-white' : 'bg-slate-900 text-slate-200'}">
+                        ${msg.text}
                     </div>
-                `;
-            }).join('');
-
+                </div>
+            `).join('');
             body.scrollTop = body.scrollHeight;
         }
 
         function sendChatMessage() {
             const input = document.getElementById('chat-input');
             const text = input.value.trim();
-            if (!text || !activeChatMatchId) return;
-
+            if(!text || !activeChatMatchId) return;
             const match = matchesList.find(m => m.id === activeChatMatchId);
-            if(!match) return;
-
             match.messages.push({ sender: 'me', text, time: 'Agora' });
             input.value = '';
             renderChatMessages();
-            playSound('msg');
-
-            const typing = document.getElementById('chat-typing');
-            typing.classList.remove('hidden');
-
-            setTimeout(() => {
-                typing.classList.add('hidden');
-                const replyIdx = Math.min(match.messages.length, match.autoReplies.length - 1);
-                const replyText = match.autoReplies[replyIdx] || "Amei conversar com você! 😊";
-                
-                match.messages.push({ sender: 'them', text: replyText, time: 'Agora' });
-                renderChatMessages();
-                updateMatchesUI();
-                playSound('msg');
-            }, 1800);
         }
 
-        function triggerChatPhotoUpload() {
-            if(!activeChatMatchId) return;
-            currentPhotoContext = 'chat';
-            document.getElementById('photo-picker-title').innerText = "Enviar Imagem no Chat";
-            document.getElementById('photo-picker-modal').classList.remove('hidden');
-        }
-
-        // --- STICKERS MODAL LOGIC & SYSTEM ---
-        function openStickersModal() {
-            if(!activeChatMatchId && matchesList.length > 0) {
-                activeChatMatchId = matchesList[0].id;
-            }
-
-            if(!activeChatMatchId) {
-                alert("Você precisa estar em uma conversa para enviar uma figurinha!");
-                switchTab('feed');
-                return;
-            }
-
-            document.getElementById('sticker-user-points').innerText = `+${affinityPoints} PTS de Casal`;
-            document.getElementById('stickers-modal').classList.remove('hidden');
-        }
-
-        function closeStickersModal() {
-            document.getElementById('stickers-modal').classList.add('hidden');
-        }
-
-        function switchStickerCat(cat) {
-            activeStickerCat = cat;
-            document.querySelectorAll('.sticker-cat-btn').forEach(b => {
-                b.className = 'sticker-cat-btn px-3 py-1.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 text-[11px] font-bold whitespace-nowrap';
-            });
-
-            const activeBtn = document.getElementById(`sticker-cat-${cat}`);
-            if (activeBtn) {
-                activeBtn.className = 'sticker-cat-btn px-3 py-1.5 rounded-full bg-brand-pink/20 text-brand-pink border border-brand-pink/40 text-[11px] font-bold whitespace-nowrap';
-            }
-
-            renderStickersGrid();
-        }
-
-        function renderStickersGrid() {
-            const grid = document.getElementById('stickers-grid');
-            const items = stickersDatabase[activeStickerCat] || [];
-
-            grid.innerHTML = items.map(st => `
-                <div onclick="sendSticker('${st.id}')" class="bg-gradient-to-br ${st.bg} border border-slate-700/80 hover:border-amber-400 p-3 rounded-2xl flex flex-col items-center text-center space-y-1.5 cursor-pointer transition-all hover:scale-[1.03] shadow-lg group">
-                    <span class="text-3xl group-hover:scale-110 transition-all">${st.icon}</span>
-                    <div>
-                        <h4 class="font-bold text-xs text-white leading-tight">${st.title}</h4>
-                        <span class="text-[9px] font-black text-amber-400 mt-0.5 block">${st.valueText}</span>
-                    </div>
-                    <span class="text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 bg-slate-950/60 rounded-full text-slate-300 border border-slate-800">${st.badge}</span>
-                </div>
-            `).join('');
-        }
-
-        function sendSticker(stickerId) {
-            const match = matchesList.find(m => m.id === activeChatMatchId);
-            if (!match) return;
-
-            let sticker = null;
-            Object.values(stickersDatabase).forEach(list => {
-                const found = list.find(s => s.id === stickerId);
-                if (found) sticker = found;
-            });
-
-            if (!sticker) return;
-
-            closeStickersModal();
-            playSound('sticker');
-
-            // Add sticker message
-            match.messages.push({
-                sender: 'me',
-                isSticker: true,
-                stickerIcon: sticker.icon,
-                stickerTitle: sticker.title,
-                stickerValue: sticker.valueText,
-                stickerBg: sticker.bg,
-                time: 'Agora'
-            });
-
-            // Increase Affinity Points
-            addAffinityPoints(sticker.points);
-
-            if(sticker.points >= 50) {
-                confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } });
-            }
-
-            renderChatMessages();
-            updateMatchesUI();
-
-            // Match automated appreciation response
-            const typing = document.getElementById('chat-typing');
-            typing.classList.remove('hidden');
-
-            setTimeout(() => {
-                typing.classList.add('hidden');
-                const stickerReplies = [
-                    `Nossa, amei essa figurinha! 😍 Você acabou de ganhar meu coração com essa!`,
-                    `Que fofura de presente! ✨ Ganhou muitos pontos comigo agora!`,
-                    `Ameiii! Que carinho gostoso! 🥰 Bora conversar mais!`
-                ];
-                const replyText = stickerReplies[Math.floor(Math.random() * stickerReplies.length)];
-                
-                match.messages.push({ sender: 'them', text: replyText, time: 'Agora' });
-                renderChatMessages();
-                updateMatchesUI();
-                playSound('msg');
-            }, 1500);
-        }
-
-        // --- NEW GAME SYSTEM LOGIC ---
-        function switchGameMode(mode) {
-            document.querySelectorAll('.game-panel').forEach(p => p.classList.add('hidden'));
-            document.querySelectorAll('.game-mode-btn').forEach(b => {
-                b.className = 'game-mode-btn bg-slate-900 text-slate-400 p-2.5 rounded-xl text-center space-y-1 border border-slate-800 hover:text-white';
-            });
-
-            document.getElementById(`game-panel-${mode}`).classList.remove('hidden');
-            const activeBtn = document.getElementById(`mode-btn-${mode}`);
-            activeBtn.className = 'game-mode-btn bg-brand-gradient text-white p-2.5 rounded-xl text-center space-y-1 border border-brand-pink/50 shadow-md';
-            playSound('card');
-        }
-
-        function updateGamePartnerInfo() {
-            const partnerLabel = document.getElementById('game-active-partner-label');
-            const partnerAvatar = document.getElementById('vote-partner-avatar');
-            const partnerName = document.getElementById('vote-partner-name');
-
-            if(activeChatMatchId) {
-                const match = matchesList.find(m => m.id === activeChatMatchId);
-                if(match) {
-                    partnerLabel.innerText = `Jogando com ${match.name}`;
-                    partnerAvatar.src = match.image;
-                    partnerName.innerText = match.name;
-                    return;
-                }
-            }
-
-            if(matchesList.length > 0) {
-                const firstMatch = matchesList[0];
-                partnerLabel.innerText = `Jogando com ${firstMatch.name}`;
-                partnerAvatar.src = firstMatch.image;
-                partnerName.innerText = firstMatch.name;
-            } else {
-                partnerLabel.innerText = "Modo Solo / Escolha um match no Chat";
-            }
-        }
-
-        function setCardCategory(cat) {
-            activeCardCategory = cat;
-            document.querySelectorAll('.cat-filter-btn').forEach(b => {
-                b.className = 'cat-filter-btn px-3 py-1 rounded-full bg-slate-900 text-slate-400 border border-slate-800 text-[10px] font-bold whitespace-nowrap';
-            });
-
-            document.getElementById(`cat-btn-${cat}`).className = 'cat-filter-btn px-3 py-1 rounded-full bg-purple-900/60 text-purple-300 border border-purple-500/40 text-[10px] font-bold whitespace-nowrap';
-            drawNewCard();
-        }
-
-        function drawNewCard() {
-            playSound('card');
-            const cardElem = document.getElementById('interactive-card');
-            cardElem.classList.add('rotate-y-180');
-
-            setTimeout(() => {
-                const list = gameCardsData[activeCardCategory];
-                currentCardIndex = (currentCardIndex + 1) % list.length;
-                const card = list[currentCardIndex];
-
-                document.getElementById('card-type-tag').innerText = card.type;
-                document.getElementById('card-prompt-text').innerText = card.prompt;
-
-                cardElem.classList.remove('rotate-y-180');
-                addAffinityPoints(10);
-            }, 250);
-        }
-
-        function sendGamePromptToChat() {
-            const list = gameCardsData[activeCardCategory];
-            const card = list[currentCardIndex];
-            
-            if(!activeChatMatchId && matchesList.length > 0) {
-                activeChatMatchId = matchesList[0].id;
-            }
-
-            if(!activeChatMatchId) {
-                alert("Você precisa ter um Match para enviar um jogo no chat!");
-                switchTab('feed');
-                return;
-            }
-
-            const match = matchesList.find(m => m.id === activeChatMatchId);
-            if(match) {
-                match.messages.push({
-                    sender: 'me',
-                    text: `🎮 [${card.type}]: ${card.prompt}`,
-                    isGame: true,
-                    time: 'Agora'
-                });
-
-                switchTab('matches');
-                openChatScreen(match.id);
-                playSound('msg');
-            }
-        }
-
-        function launchGameFromChat() {
-            switchTab('games');
-        }
-
-        function voteMostLikely(who) {
-            playSound('card');
-            addAffinityPoints(15);
-            confetti({ particleCount: 40, spread: 50, origin: { y: 0.7 } });
-            nextMostLikelyQuestion();
-        }
-
-        function nextMostLikelyQuestion() {
-            currentMostLikelyIdx = (currentMostLikelyIdx + 1) % mostLikelyQuestions.length;
-            document.getElementById('most-likely-prompt').innerText = mostLikelyQuestions[currentMostLikelyIdx];
-        }
-
-        function renderAffinityQuiz() {
-            const quiz = affinityQuizQuestions[currentQuizIdx];
-            document.getElementById('quiz-question-title').innerText = quiz.title;
-            document.getElementById('quiz-step-count').innerText = `Pergunta ${currentQuizIdx + 1} de ${affinityQuizQuestions.length}`;
-
-            const container = document.getElementById('quiz-options-container');
-            container.innerHTML = quiz.options.map((opt, i) => `
-                <button onclick="selectQuizOption(${i})" class="w-full p-3 rounded-2xl bg-slate-800/80 hover:bg-brand-gradient hover:text-white border border-slate-700/80 text-left text-xs font-semibold text-slate-200 transition-all flex items-center justify-between">
-                    <span>${opt}</span>
-                    <i class="fa-solid fa-chevron-right text-[10px] opacity-60"></i>
-                </button>
-            `).join('');
-        }
-
-        function selectQuizOption(index) {
-            playSound('card');
-            addAffinityPoints(20);
-            confetti({ particleCount: 50, spread: 60 });
-
-            if(currentQuizIdx < affinityQuizQuestions.length - 1) {
-                currentQuizIdx++;
-                renderAffinityQuiz();
-            } else {
-                alert("✨ Parabéns! Você concluiu o Quiz de Sintonia e ganhou 50 PTS de Afimidade!");
-                currentQuizIdx = 0;
-                renderAffinityQuiz();
-            }
-        }
-
-        function addAffinityPoints(pts) {
-            affinityPoints += pts;
-            document.getElementById('affinity-score-val').innerText = affinityPoints;
-
-            let pct = Math.min(100, Math.floor((affinityPoints / 300) * 100));
-            document.getElementById('affinity-progress-bar').style.width = `${pct}%`;
-
-            if(affinityPoints > 200) {
-                document.getElementById('affinity-level-title').innerText = "Nível 3 - Casal VIP Total! 🔥";
-            }
-        }
-
-        // --- EXPLORE REELS FEED ---
-        function renderExploreVideoReels() {
-            const grid = document.getElementById('video-reels-grid');
-            grid.innerHTML = initialProfiles.map(p => `
-                <div onclick="openProfileModal(${p.id})" class="relative h-64 rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 group cursor-pointer">
-                    <video src="${p.video}" class="w-full h-full object-cover group-hover:scale-105 transition-all" muted loop playsinline autoplay></video>
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-                    <div class="absolute bottom-3 left-3 right-3 text-left">
-                        <h4 class="font-bold text-sm text-white flex items-center gap-1">${p.name}, ${p.age} <i class="fa-solid fa-circle-check text-sky-400 text-xs"></i></h4>
-                        <p class="text-[10px] text-slate-300 line-clamp-1">${p.bio}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // --- VIDEO CALL SIMULATION ---
-        async function startVideoCall() {
-            if(!isVipUser) {
-                alert("🔒 Recursos de Videochamada HD exigem Assinatura VIP!");
-                openVipModal();
-                return;
-            }
-
-            const match = matchesList.find(m => m.id === activeChatMatchId);
-            if(!match) return;
-
-            document.getElementById('videocall-partner-name').innerText = match.name;
-            const remoteVideo = document.getElementById('remote-video-element');
-            remoteVideo.src = match.video;
-            remoteVideo.play();
-
-            document.getElementById('videocall-modal').classList.remove('hidden');
-
-            try {
-                localMediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                document.getElementById('local-webcam-element').srcObject = localMediaStream;
-                document.getElementById('webcam-fallback-msg').classList.add('hidden');
-            } catch(e) {
-                document.getElementById('webcam-fallback-msg').classList.remove('hidden');
-            }
-
-            callSeconds = 0;
-            clearInterval(callTimerInterval);
-            callTimerInterval = setInterval(() => {
-                callSeconds++;
-                const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
-                const secs = String(callSeconds % 60).padStart(2, '0');
-                document.getElementById('videocall-timer').innerText = `${mins}:${secs}`;
-            }, 1000);
-        }
-
-        function endVideoCall() {
-            clearInterval(callTimerInterval);
-            if(localMediaStream) {
-                localMediaStream.getTracks().forEach(track => track.stop());
-            }
-            document.getElementById('videocall-modal').classList.add('hidden');
-        }
-
-        function toggleMuteMic() {
-            const btn = document.getElementById('btn-toggle-mic');
-            btn.classList.toggle('bg-red-600');
-        }
-
-        function toggleLocalCam() {
-            const btn = document.getElementById('btn-toggle-cam');
-            btn.classList.toggle('bg-red-600');
-        }
-
-        // --- VIP CHECKOUT & SUBSCRIPTION ---
+        // --- SISTEMA VIP INTELIGENTE E WEBHOOK SIMULADO ---
         function openVipModal() {
+            orderActive = true;
+            document.getElementById('vip-step-plans').classList.remove('hidden');
+            document.getElementById('vip-step-payment').classList.add('hidden');
             document.getElementById('vip-modal').classList.remove('hidden');
         }
 
         function closeVipModal() {
             document.getElementById('vip-modal').classList.add('hidden');
-        }
-
-        function selectPlan(type) {
-            document.querySelectorAll('.plan-card').forEach(p => {
-                p.className = 'plan-card border border-slate-800 bg-slate-900/60 p-4 rounded-2xl flex justify-between items-center cursor-pointer transition-all';
-            });
-            document.getElementById(`plan-${type}`).className = 'plan-card border-2 border-amber-400 bg-amber-500/10 p-4 rounded-2xl flex justify-between items-center cursor-pointer transition-all';
-        }
-
-        function setPayMethod(method) {
-            document.getElementById('pay-btn-pix').className = 'py-2.5 rounded-xl border border-slate-800 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-2';
-            document.getElementById('pay-btn-card').className = 'py-2.5 rounded-xl border border-slate-800 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-2';
-
-            if(method === 'pix') {
-                document.getElementById('pay-btn-pix').className = 'py-2.5 rounded-xl border border-emerald-500/60 bg-emerald-500/10 text-emerald-400 font-bold text-xs flex items-center justify-center gap-2';
-            } else {
-                document.getElementById('pay-btn-card').className = 'py-2.5 rounded-xl border border-amber-500/60 bg-amber-500/10 text-amber-400 font-bold text-xs flex items-center justify-center gap-2';
+            if(orderActive && !isVipUser) {
+                cancelVipOrder();
             }
         }
 
-        function processVipCheckout() {
+        function proceedToCheckout() {
+            document.getElementById('vip-step-plans').classList.add('hidden');
+            document.getElementById('vip-step-payment').classList.remove('hidden');
+            startPixCountdown(300); // 5 minutos
+            startSmartPaymentVerification(); // Inicia verificação automática em segundo plano
+        }
+
+        function startPixCountdown(duration) {
+            let timer = duration;
+            clearInterval(pixTimer);
+            pixTimer = setInterval(() => {
+                let mins = Math.floor(timer / 60);
+                let secs = timer % 60;
+                document.getElementById('pix-countdown').innerText = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+                if (--timer < 0) {
+                    clearInterval(pixTimer);
+                    cancelVipOrder();
+                    showToast("⏰ O tempo do pedido expirou.");
+                }
+            }, 1000);
+        }
+
+        function startSmartPaymentVerification() {
+            let attempts = 0;
+            clearInterval(pixCheckInterval);
+            
+            // Simula uma checagem inteligente no gateway de pagamento a cada 3.5 segundos
+            pixCheckInterval = setInterval(() => {
+                attempts++;
+                
+                // Na 4ª tentativa (~14 segundos), o sistema identifica o Pix e ativa o VIP sozinho
+                if (attempts === 4) {
+                    clearInterval(pixCheckInterval);
+                    clearInterval(pixTimer);
+                    completeVipActivation();
+                }
+            }, 3500);
+        }
+
+        function completeVipActivation() {
+            orderActive = false;
             isVipUser = true;
             closeVipModal();
-            confetti({ particleCount: 100, spread: 80 });
+            confetti({ particleCount: 130, spread: 90 });
 
-            document.getElementById('user-vip-status-tag').innerHTML = '<i class="fa-solid fa-crown text-[8px] mr-1"></i> ASSINANTE VIP GOLD';
-            document.getElementById('vip-action-btn').innerText = 'SUA ASSINATURA ESTÁ ATIVA!';
+            // Atualiza UI geral do App para Membro VIP
+            document.getElementById('user-vip-status-tag').innerHTML = '<i class="fa-solid fa-crown text-[8px] mr-1 text-amber-400"></i> MEMBRO VIP ATIVO';
+            document.getElementById('vip-price-tag').innerText = "VIP ATIVO";
+            document.getElementById('vip-action-btn').innerText = "VOCÊ JÁ É MEMBRO VIP ✨";
             document.getElementById('vip-action-btn').disabled = true;
 
-            alert("🎉 Parabéns! Sua assinatura LoveConnect VIP foi ativada com sucesso!");
+            showToast("🎉 Pix compensado! Seja bem-vindo ao LoveConnect VIP.");
         }
 
-        // --- PROFILE DETAIL MODAL ---
-        function openProfileModal(profileId) {
-            const profile = initialProfiles.find(p => p.id === profileId);
-            if(!profile) return;
-
-            document.getElementById('detail-profile-img').src = profile.image;
-            document.getElementById('detail-profile-name-age').innerText = `${profile.name}, ${profile.age}`;
-            document.getElementById('detail-profile-dist').innerText = profile.distance;
-            document.getElementById('detail-profile-bio').innerText = profile.bio;
-
-            const gallery = document.getElementById('detail-profile-gallery');
-            gallery.innerHTML = profile.gallery.map(img => `
-                <img src="${img}" class="w-full h-24 object-cover rounded-xl border border-slate-800">
-            `).join('');
-
-            document.getElementById('profile-modal').classList.remove('hidden');
+        function cancelVipOrder() {
+            clearInterval(pixTimer);
+            clearInterval(pixCheckInterval);
+            orderActive = false;
+            isVipUser = false;
+            closeVipModal();
+            showToast("❌ Pedido VIP cancelado.");
         }
 
-        function closeProfileModal() {
-            document.getElementById('profile-modal').classList.add('hidden');
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-5 left-1/2 transform -translate-x-1/2 bg-slate-900 border border-amber-500/50 text-white px-5 py-3 rounded-2xl shadow-2xl z-50 text-xs font-bold flex items-center gap-2 animate-bounce';
+            toast.innerHTML = `<i class="fa-solid fa-sparkles text-amber-400"></i> ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
         }
 
-        function openProfileDetailModalFromChat() {
-            if(activeChatMatchId) openProfileModal(activeChatMatchId);
-        }
-
-        function updateProfileInfo() {
-            const name = document.getElementById('edit-name-input').value;
-            document.getElementById('my-profile-name').innerText = name;
-        }
-
-        // --- DEVICE CAMERA & GALLERY SELECTION LOGIC ---
-        function changeProfilePhoto() {
-            currentPhotoContext = 'profile';
-            document.getElementById('photo-picker-title').innerText = "Alterar Foto de Perfil";
-            document.getElementById('photo-picker-modal').classList.remove('hidden');
-        }
-
-        function closePhotoPickerModal() {
-            document.getElementById('photo-picker-modal').classList.add('hidden');
-        }
-
-        function triggerPhotoSource(source) {
-            closePhotoPickerModal();
-            const prefix = currentPhotoContext === 'profile' ? 'profile' : 'chat';
-
-            if (source === 'camera') {
-                document.getElementById(`${prefix}-photo-camera-input`).click();
-            } else if (source === 'gallery') {
-                document.getElementById(`${prefix}-photo-gallery-input`).click();
-            } else if (source === 'url') {
-                const url = prompt("Insira a URL da imagem:", "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400");
-                if (url) {
-                    applySelectedImage(url, currentPhotoContext);
-                }
+        function startVideoCall() {
+            if(!isVipUser) {
+                openVipModal();
+                return;
             }
+            document.getElementById('videocall-modal').classList.remove('hidden');
         }
 
-        function handleImageSelection(event, context) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const imageDataUrl = e.target.result;
-                applySelectedImage(imageDataUrl, context);
-            };
-            reader.readAsDataURL(file);
-            event.target.value = '';
-        }
-
-        function applySelectedImage(imageDataUrl, context) {
-            if (context === 'profile') {
-                myProfile.image = imageDataUrl;
-                document.getElementById('my-profile-img').src = imageDataUrl;
-                document.getElementById('match-modal-user-img').src = imageDataUrl;
-                document.getElementById('vote-my-avatar').src = imageDataUrl;
-            } else if (context === 'chat' && activeChatMatchId) {
-                const match = matchesList.find(m => m.id === activeChatMatchId);
-                if (match) {
-                    match.messages.push({
-                        sender: 'me',
-                        text: imageDataUrl,
-                        isImage: true,
-                        time: 'Agora'
-                    });
-                    renderChatMessages();
-                    playSound('msg');
-                }
-            }
+        function endVideoCall() {
+            document.getElementById('videocall-modal').classList.add('hidden');
         }
     </script>
 </body>
 </html>
-```
